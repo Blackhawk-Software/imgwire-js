@@ -23,7 +23,9 @@ export async function computeCodegenVersion(input: {
   hash.update(
     JSON.stringify({
       codegenCore:
-        packageJson.dependencies?.["@imgwire/codegen-core"] ?? "missing",
+        packageJson.dependencies?.["@imgwire/codegen-core"] ??
+        packageJson.devDependencies?.["@imgwire/codegen-core"] ??
+        "missing",
       openapiGeneratorCli:
         packageJson.devDependencies?.["@openapitools/openapi-generator-cli"] ??
         "missing",
