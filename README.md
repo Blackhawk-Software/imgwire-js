@@ -24,8 +24,14 @@ const client = new ImgwireClient({
   apiKey: "ck_..."
 });
 
-const upload = await client.images.create({
-  file_name: "hero.png"
+const file = new File(["hello"], "hero.png", {
+  type: "image/png"
+});
+
+const image = await client.images.upload(file, {
+  onProgress(progress) {
+    console.log(progress.percent);
+  }
 });
 ```
 

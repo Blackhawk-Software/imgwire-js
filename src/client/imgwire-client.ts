@@ -26,6 +26,9 @@ export class ImgwireClient {
       }
     });
 
-    this.images = new ImagesResource(configuration);
+    this.images = new ImagesResource(configuration, {
+      timeoutMs: options.timeoutMs,
+      xhrFactory: options.xhrFactory
+    });
   }
 }
