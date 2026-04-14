@@ -1,6 +1,6 @@
 {
   "name": "@imgwire/js",
-  "version": "0.1.0",
+  "version": "0.1.1-test.1",
   "description": "Browser-first JavaScript/TypeScript SDK for the imgwire API.",
   "license": "MIT",
   "packageManager": "npm@11.6.2",
@@ -34,6 +34,8 @@
     "verify-generated": "tsx scripts/verify-generated.ts",
     "format": "prettier --write .",
     "build": "tsup",
+    "release:prepare": "node scripts/release.mjs prepare",
+    "release:verify-tag": "node scripts/release.mjs verify-tag",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "ci": "npm run verify-generated && npm run typecheck && npm run test && npm run build"
