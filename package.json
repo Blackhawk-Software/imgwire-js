@@ -9,8 +9,10 @@
   "files": [
     "dist",
     "generated",
-    "openapi",
+    "openapi/raw.openapi.json",
+    "openapi/sdk.openapi.json",
     "CODEGEN_VERSION",
+    "LICENSE",
     "README.md"
   ],
   "main": "./dist/index.cjs",
