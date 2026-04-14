@@ -27,6 +27,7 @@ export class ImgwireClient {
     });
 
     this.images = new ImagesResource(configuration, {
+      getUploadToken: options.getUploadToken,
       timeoutMs: options.timeoutMs,
       xhrFactory: options.xhrFactory
     });

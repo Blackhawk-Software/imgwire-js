@@ -8,7 +8,10 @@ import type {
   StandardUploadResponseSchema
 } from "../../generated/src/models/index.ts";
 import type { Configuration } from "../../generated/src/runtime.ts";
-import type { XmlHttpRequestFactory } from "../client/types.ts";
+import type {
+  UploadTokenProvider,
+  XmlHttpRequestFactory
+} from "../client/types.ts";
 import { extendImage, type ImgwireImage } from "../images/url-builder.ts";
 import {
   uploadWithProgress,
@@ -24,6 +27,7 @@ export type ImagesCreateOptions = {
 export type ImagesUploadOptions = ImagesCreateOptions & {
   customMetadata?: StandardUploadCreateSchema["custom_metadata"];
   fileName?: string;
+  getUploadToken?: UploadTokenProvider;
   hashSha256?: string | null;
   idempotencyKey?: string | null;
   mimeType?: StandardUploadCreateSchema["mime_type"];
@@ -40,6 +44,7 @@ export type StandardUploadResponse = Omit<
 };
 
 type ImagesResourceOptions = {
+  getUploadToken?: UploadTokenProvider;
   timeoutMs?: number;
   xhrFactory?: XmlHttpRequestFactory;
 };
@@ -75,6 +80,14 @@ export class ImagesResource {
     file: File,
     options?: ImagesUploadOptions
   ): Promise<ImgwireImage> {
+    const uploadToken =
+      options?.uploadToken ??
+      (options?.getUploadToken
+        ? await options.getUploadToken()
+        : this.options.getUploadToken
+          ? await this.options.getUploadToken()
+          : undefined);
+
     const response = await this.create(
       {
         content_length: file.size,
@@ -85,7 +98,10 @@ export class ImagesResource {
         mime_type: options?.mimeType ?? normalizeMimeType(file.type),
         purpose: options?.purpose
       },
-      options
+      {
+        ...options,
+        uploadToken
+      }
     );
 
     await uploadWithProgress(response.upload_url, file, {

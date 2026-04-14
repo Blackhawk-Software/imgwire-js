@@ -38,7 +38,9 @@ function prepareRelease(version) {
   }
   writeJson(packageLockPath, packageLock);
 
-  console.log(`Updated package.json and package-lock.json to version ${version}.`);
+  console.log(
+    `Updated package.json and package-lock.json to version ${version}.`
+  );
   console.log("Next steps:");
   console.log("1. Run npm run ci.");
   console.log("2. Review the diff.");

@@ -47,6 +47,45 @@ const image = await client.images.upload(file, {
 
 The returned value is the created image record, extended with URL helpers for CDN transformations.
 
+If your client token requires signed uploads, provide an upload token directly or register a helper that fetches one from your backend.
+
+Global provider:
+
+```ts
+const client = new ImgwireClient({
+  apiKey: "ck_...",
+  getUploadToken: async () => {
+    const response = await fetch("/api/imgwire/upload-token", {
+      method: "POST"
+    });
+
+    const { uploadToken } = await response.json();
+    return uploadToken;
+  }
+});
+```
+
+Per-call provider:
+
+```ts
+await client.images.upload(file, {
+  getUploadToken: async () => {
+    const response = await fetch("/api/imgwire/upload-token", {
+      method: "POST"
+    });
+
+    const { uploadToken } = await response.json();
+    return uploadToken;
+  }
+});
+```
+
+Precedence order for upload tokens:
+
+1. `uploadToken` passed directly to `images.upload(...)`
+2. `getUploadToken` passed directly to `images.upload(...)`
+3. `getUploadToken` configured on `ImgwireClient`
+
 ## Image Transformation URLs
 
 Returned image objects expose a `url(...)` helper that builds transformed CDN urls:
