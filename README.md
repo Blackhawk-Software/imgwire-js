@@ -2,12 +2,7 @@
 
 `@imgwire/js` is the browser-first JavaScript/TypeScript SDK for the imgwire API.
 
-The package is built from the imgwire OpenAPI contract through a deterministic pipeline:
-
-1. acquire the raw OpenAPI document
-2. shape it with `@imgwire/codegen-core`
-3. generate a disposable base client with OpenAPI Generator
-4. layer in handwritten browser-friendly SDK code
+Imgwire helps you upload, serve, and transform images in your app without building and maintaining the image infrastructure yourself. Use `@imgwire/js` to send files from the browser, generate optimized CDN URLs, and ship image-heavy product flows without wiring together object storage, signing, delivery, and transformation logic by hand.
 
 ## Installation
 
@@ -15,7 +10,7 @@ The package is built from the imgwire OpenAPI contract through a deterministic p
 npm install @imgwire/js
 ```
 
-## Usage
+## Quick Start
 
 ```ts
 import { ImgwireClient } from "@imgwire/js";
@@ -37,6 +32,20 @@ const image = await client.images.upload(file, {
 const thumbnailUrl = image.url({ preset: "thumbnail" });
 const transformedUrl = image.url({ width: 150, height: 150, rotate: 90 });
 ```
+
+## Uploading Images
+
+Use `client.images.upload(...)` to create the upload intent and then upload the file to the returned presigned URL:
+
+```ts
+const image = await client.images.upload(file, {
+  onProgress(progress) {
+    console.log(progress.loaded, progress.total, progress.percent);
+  }
+});
+```
+
+The returned value is the created image record, extended with URL helpers for CDN transformations.
 
 ## Image Transformation URLs
 
@@ -111,7 +120,7 @@ image.url({ enlarge: false, resizing_type: "fit", width: 960, height: 960 });
 image.url({ extend: "true:ce:0:0", background: "255:255:255" });
 ```
 
-## Local Development
+## Development
 
 ```bash
 npm install
@@ -119,12 +128,21 @@ npm run generate
 npm run ci
 ```
 
+## Generation
+
+This repository is generated from the imgwire API contract and then extended with handwritten browser-first SDK code.
+
+The pipeline is:
+
+1. acquire the raw OpenAPI document
+2. shape it with `@imgwire/codegen-core`
+3. generate a disposable base client with OpenAPI Generator
+4. layer in handwritten SDK code
+
 Set `OPENAPI_SOURCE` to override the spec source. By default:
 
 - local/dev uses `http://localhost:8000/openapi.json`
 - release-oriented generation can use `https://api.imgwire.dev/openapi.json` by setting `OPENAPI_RELEASE=true`
-
-## Generation
 
 ```bash
 npm run generate
@@ -137,6 +155,12 @@ This writes:
 - `generated/`
 - `CODEGEN_VERSION`
 
+Generated code lives in `generated/` and should not be edited by hand. Durable SDK code lives in `src/`.
+
 ## Publishing
 
 Release workflow scaffolding is present, but publishing details are still early-access and subject to change.
+
+## License
+
+MIT. See [LICENSE](./LICENSE).

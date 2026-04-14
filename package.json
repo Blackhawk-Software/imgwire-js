@@ -2,7 +2,7 @@
   "name": "@imgwire/js",
   "version": "0.1.0",
   "description": "Browser-first JavaScript/TypeScript SDK for the imgwire API.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "packageManager": "npm@11.6.2",
   "type": "module",
   "sideEffects": false,
