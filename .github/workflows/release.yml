@@ -4,38 +4,43 @@ on:
   release:
     types:
       - published
-  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
-      - name: Checkout
+      - name: Check Out Repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
 
-      - name: Setup Node
+      - name: Set Up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
           registry-url: https://registry.npmjs.org
+          scope: "@imgwire"
+          cache: npm
 
-      - name: Setup Java
+      - name: Set Up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Validate package
+      - name: Verify Release Tag
+        run: npm run release:verify-tag -- "${{ github.event.release.tag_name }}"
+
+      - name: Validate Package
         run: npm run ci
 
-      - name: Publish package
-        if: github.event_name == 'release'
+      - name: Publish Package
         run: npm publish --provenance --access public
