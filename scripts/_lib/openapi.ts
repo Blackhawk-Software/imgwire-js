@@ -1,8 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { isAbsolute, resolve } from "node:path";
 
-export const DEFAULT_LOCAL_OPENAPI_SOURCE = "http://localhost:8000/openapi.json";
-export const DEFAULT_RELEASE_OPENAPI_SOURCE = "https://api.imgwire.dev/openapi.json";
+export const DEFAULT_LOCAL_OPENAPI_SOURCE =
+  "http://localhost:8000/openapi.json";
+export const DEFAULT_RELEASE_OPENAPI_SOURCE =
+  "https://api.imgwire.dev/openapi.json";
 
 export function resolveOpenApiSource(): string {
   return (
@@ -28,5 +30,8 @@ export async function loadOpenApiSource(
   }
 
   const filePath = isAbsolute(source) ? source : resolve(source);
-  return JSON.parse(await readFile(filePath, "utf8")) as Record<string, unknown>;
+  return JSON.parse(await readFile(filePath, "utf8")) as Record<
+    string,
+    unknown
+  >;
 }

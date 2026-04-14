@@ -30,6 +30,7 @@
     "generate": "tsx scripts/generate.ts",
     "postprocess": "tsx scripts/postprocess.ts",
     "verify-generated": "tsx scripts/verify-generated.ts",
+    "format": "prettier --write .",
     "build": "tsup",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.13.4",
     "@types/node": "24.9.1",
+    "prettier": "3.6.2",
     "tsup": "8.3.5",
     "tsx": "4.19.2",
     "typescript": "5.9.3",

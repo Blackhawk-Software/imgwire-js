@@ -16,5 +16,10 @@
     "declaration": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "scripts/**/*.ts", "test/**/*.ts", "generated/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "scripts/**/*.ts",
+    "test/**/*.ts",
+    "generated/**/*.ts"
+  ]
 }

@@ -195,12 +195,7 @@
       },
       "ImageStatus": {
         "description": "Represents the processing state for an image.",
-        "enum": [
-          "PENDING",
-          "PROCESSING",
-          "READY",
-          "QUARANTINE"
-        ],
+        "enum": ["PENDING", "PROCESSING", "READY", "QUARANTINE"],
         "title": "ImageStatus",
         "type": "string"
       },
@@ -293,9 +288,7 @@
             "title": "Purpose"
           }
         },
-        "required": [
-          "file_name"
-        ],
+        "required": ["file_name"],
         "title": "StandardUploadCreateSchema",
         "type": "object"
       },
@@ -309,10 +302,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "image",
-          "upload_url"
-        ],
+        "required": ["image", "upload_url"],
         "title": "StandardUploadResponseSchema",
         "type": "object"
       },
@@ -353,11 +343,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
+        "required": ["loc", "msg", "type"],
         "title": "ValidationError",
         "type": "object"
       }
@@ -440,9 +426,7 @@
           }
         },
         "summary": "Create Standard Upload",
-        "tags": [
-          "Images"
-        ],
+        "tags": ["Images"],
         "x-codegen-sdk-auth": "server_or_client_key",
         "x-codegen-sdk-group-name": "images",
         "x-codegen-sdk-method-name": "create"

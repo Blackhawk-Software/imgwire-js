@@ -1,5 +1,11 @@
-import { ImagesApi, type ImagesCreateRequest } from "../../generated/src/apis/ImagesApi.ts";
-import type { StandardUploadCreateSchema, StandardUploadResponseSchema } from "../../generated/src/models/index.ts";
+import {
+  ImagesApi,
+  type ImagesCreateRequest
+} from "../../generated/src/apis/ImagesApi.ts";
+import type {
+  StandardUploadCreateSchema,
+  StandardUploadResponseSchema
+} from "../../generated/src/models/index.ts";
 import type { Configuration } from "../../generated/src/runtime.ts";
 
 export type ImagesCreateOptions = {

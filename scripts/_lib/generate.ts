@@ -44,11 +44,16 @@ export async function runGenerate(options?: {
   await writeJson(sdkOutputPath, sdkSpec);
 
   await resetDir(outputDir);
-  const generatorInputPath = resolve(OPENAPI_DIR, ".sdk.openapi.generator.json");
+  const generatorInputPath = resolve(
+    OPENAPI_DIR,
+    ".sdk.openapi.generator.json"
+  );
   await writeJson(generatorInputPath, toGeneratorCompatibleSpec(sdkSpec));
   await runOpenApiGenerator(generatorInputPath, outputDir);
 
-  const postprocessModule = await import(resolve(REPO_ROOT, "scripts/postprocess.ts"));
+  const postprocessModule = await import(
+    resolve(REPO_ROOT, "scripts/postprocess.ts")
+  );
   await postprocessModule.runPostprocess({ generatedDir: outputDir });
 
   const codegenVersion = await computeCodegenVersion({
