@@ -33,6 +33,82 @@ const image = await client.images.upload(file, {
     console.log(progress.percent);
   }
 });
+
+const thumbnailUrl = image.url({ preset: "thumbnail" });
+const transformedUrl = image.url({ width: 150, height: 150, rotate: 90 });
+```
+
+## Image Transformation URLs
+
+Returned image objects expose a `url(...)` helper that builds transformed CDN urls:
+
+```ts
+const image = await client.images.upload(file);
+
+image.url({ preset: "thumbnail" });
+image.url({ width: 150, height: 150, rotate: 90 });
+image.url({ preset: "thumbnail", format: "webp", quality: 80 });
+```
+
+Presets are applied as a suffix after the file extension and before query params:
+
+- `thumbnail` -> `@thumbnail`
+- `small` -> `@small`
+- `medium` -> `@medium`
+- `large` -> `@large`
+
+Example:
+
+```ts
+image.url({ preset: "thumbnail", rotate: 90 });
+// https://cdn.imgwire.dev/example.jpg@thumbnail?rotate=90
+```
+
+The SDK validates and normalizes transformation values to match the CDN worker. Query params are emitted using canonical rule names and sorted deterministically.
+
+Supported transformations:
+
+- `background` aliases: `bg`
+- `blur` aliases: `bl`
+- `crop` aliases: `c`
+- `dpr`
+- `enlarge` aliases: `el`
+- `extend` aliases: `ex`
+- `extend_aspect_ratio` aliases: `exar`, `extend_ar`
+- `flip` aliases: `fl`
+- `format` aliases: `f`, `ext`, `extension`
+- `gravity` aliases: `g`
+- `height` aliases: `h`
+- `keep_copyright` aliases: `kcr`
+- `min-height` aliases: `mh`
+- `min-width` aliases: `mw`
+- `padding` aliases: `pd`
+- `pixelate` aliases: `pix`
+- `quality` aliases: `q`
+- `resizing_type`
+- `rotate` aliases: `rot`
+- `sharpen` aliases: `sh`
+- `strip_color_profile` aliases: `scp`
+- `strip_metadata` aliases: `sm`
+- `width` aliases: `w`
+- `zoom` aliases: `z`
+
+Accepted worker values:
+
+- `gravity`: `no`, `so`, `ea`, `we`, `noea`, `nowe`, `soea`, `sowe`, `ce`, plus `:sm` or pixel offsets like `ce:10:20`
+- `resizing_type`: `fit`, `fill`, `fill-down`, `force`, `auto`
+- `format`: `jpg`, `png`, `avif`, `gif`, `webp`
+- `rotate`: `0`, `90`, `180`, `270`, `360`
+- booleans: `true`, `false`, `t`, `f`, `1`, `0`
+
+Examples:
+
+```ts
+image.url({ background: "#ffffff", width: 300, height: 200 });
+image.url({ crop: "300:200:ce:0:0", format: "webp" });
+image.url({ strip_metadata: true, strip_color_profile: true, quality: 82 });
+image.url({ enlarge: false, resizing_type: "fit", width: 960, height: 960 });
+image.url({ extend: "true:ce:0:0", background: "255:255:255" });
 ```
 
 ## Local Development

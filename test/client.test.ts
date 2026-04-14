@@ -145,6 +145,12 @@ describe("ImgwireClient", () => {
     });
 
     expect(image.id).toBe("img_123");
+    expect(
+      image.url({
+        preset: "thumbnail",
+        rotate: 90
+      })
+    ).toBe("https://cdn.imgwire.dev/example.png@thumbnail?rotate=90");
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(progressEvents).toEqual([2, 4]);
     expect(xhrRequests).toEqual([
@@ -158,6 +164,64 @@ describe("ImgwireClient", () => {
     ]);
     const requestInit = fetchMock.mock.calls[0]?.[1] as RequestInit;
     expect(requestInit.body).toContain('"file_name":"hero.png"');
+  });
+
+  it("extends created images with url generation", async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          image: {
+            cdn_url: "https://cdn.imgwire.dev/example.jpg",
+            created_at: "2026-04-14T00:00:00Z",
+            custom_metadata: {},
+            deleted_at: null,
+            environment_id: null,
+            exif_data: {},
+            extension: "jpg",
+            hash_sha256: null,
+            height: 100,
+            id: "img_456",
+            idempotency_key: null,
+            mime_type: "image/jpeg",
+            original_filename: "example.jpg",
+            processed_metadata_at: null,
+            purpose: null,
+            size_bytes: 10,
+            status: "READY",
+            updated_at: "2026-04-14T00:00:00Z",
+            upload_token_id: null,
+            width: 100
+          },
+          upload_url: "https://uploads.imgwire.dev/example"
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          status: 200
+        }
+      )
+    );
+
+    const client = new ImgwireClient({
+      apiKey: "ck_test",
+      fetch: fetchMock
+    });
+
+    const response = await client.images.create({
+      file_name: "example.jpg"
+    });
+
+    expect(
+      response.image.url({
+        preset: "thumbnail",
+        width: 150,
+        height: 150,
+        rotate: 90
+      })
+    ).toBe(
+      "https://cdn.imgwire.dev/example.jpg@thumbnail?height=150&rotate=90&width=150"
+    );
   });
 });
 

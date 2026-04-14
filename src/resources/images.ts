@@ -9,6 +9,7 @@ import type {
 } from "../../generated/src/models/index.ts";
 import type { Configuration } from "../../generated/src/runtime.ts";
 import type { XmlHttpRequestFactory } from "../client/types.ts";
+import { extendImage, type ImgwireImage } from "../images/url-builder.ts";
 import {
   uploadWithProgress,
   type UploadProgress
@@ -31,6 +32,13 @@ export type ImagesUploadOptions = ImagesCreateOptions & {
   signal?: AbortSignal;
 };
 
+export type StandardUploadResponse = Omit<
+  StandardUploadResponseSchema,
+  "image"
+> & {
+  image: ImgwireImage;
+};
+
 type ImagesResourceOptions = {
   timeoutMs?: number;
   xhrFactory?: XmlHttpRequestFactory;
@@ -51,20 +59,22 @@ export class ImagesResource {
   create(
     body: StandardUploadCreateSchema,
     options?: ImagesCreateOptions
-  ): Promise<StandardUploadResponseSchema> {
+  ): Promise<StandardUploadResponse> {
     const request: ImagesCreateRequest = {
       standardUploadCreateSchema: body,
       uploadToken: options?.uploadToken,
       xEnvironmentId: options?.environmentId
     };
 
-    return this.api.imagesCreate(request, options?.requestInit);
+    return this.api
+      .imagesCreate(request, options?.requestInit)
+      .then(extendStandardUploadResponse);
   }
 
   async upload(
     file: File,
     options?: ImagesUploadOptions
-  ): Promise<ImageSchema> {
+  ): Promise<ImgwireImage> {
     const response = await this.create(
       {
         content_length: file.size,
@@ -97,4 +107,13 @@ function normalizeMimeType(
   return mimeType
     ? (mimeType as StandardUploadCreateSchema["mime_type"])
     : undefined;
+}
+
+function extendStandardUploadResponse(
+  response: StandardUploadResponseSchema
+): StandardUploadResponse {
+  return {
+    ...response,
+    image: extendImage(response.image)
+  };
 }
