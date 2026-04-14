@@ -7,7 +7,9 @@
   "paths": {
     "/api/v1/app_context/": {
       "get": {
-        "tags": ["App Context"],
+        "tags": [
+          "App Context"
+        ],
         "summary": "Get App Context",
         "operationId": "get_app_context_api_v1_app_context__get",
         "responses": {
@@ -27,7 +29,9 @@
     },
     "/api/v1/api_keys/": {
       "get": {
-        "tags": ["API Keys"],
+        "tags": [
+          "API Keys"
+        ],
         "summary": "List API Keys",
         "operationId": "list_api_keys_api_v1_api_keys__get",
         "parameters": [
@@ -149,7 +153,9 @@
         "x-codegen-sdk-ignore": true
       },
       "post": {
-        "tags": ["API Keys"],
+        "tags": [
+          "API Keys"
+        ],
         "summary": "Create API Key",
         "operationId": "create_api_key_api_v1_api_keys__post",
         "parameters": [
@@ -208,7 +214,9 @@
     },
     "/api/v1/api_keys/{api_key_id}": {
       "get": {
-        "tags": ["API Keys"],
+        "tags": [
+          "API Keys"
+        ],
         "summary": "Get API Key By ID",
         "operationId": "get_api_key_by_id_api_v1_api_keys__api_key_id__get",
         "parameters": [
@@ -265,7 +273,9 @@
         "x-codegen-sdk-ignore": true
       },
       "patch": {
-        "tags": ["API Keys"],
+        "tags": [
+          "API Keys"
+        ],
         "summary": "Update API Key By ID",
         "operationId": "update_api_key_by_id_api_v1_api_keys__api_key_id__patch",
         "parameters": [
@@ -332,7 +342,9 @@
         "x-codegen-sdk-ignore": true
       },
       "delete": {
-        "tags": ["API Keys"],
+        "tags": [
+          "API Keys"
+        ],
         "summary": "Delete API Key By ID",
         "operationId": "delete_api_key_by_id_api_v1_api_keys__api_key_id__delete",
         "parameters": [
@@ -395,7 +407,9 @@
     },
     "/api/v1/auth/init": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Init Authentication",
         "description": "Initiate authentication with WorkOS and get the redirect URL for auth.",
         "operationId": "init_auth_api_v1_auth_init_get",
@@ -416,7 +430,9 @@
     },
     "/api/v1/auth/callback": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Authentication Callback with OAuth Code",
         "description": "Exchange OAuth code for access token.",
         "operationId": "auth_callback_api_v1_auth_callback_post",
@@ -458,7 +474,9 @@
     },
     "/api/v1/auth/refresh": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Authenticate with Refresh Token",
         "description": "Exchange Refresh Token for access token.",
         "operationId": "auth_refresh_api_v1_auth_refresh_post",
@@ -516,7 +534,9 @@
     },
     "/api/v1/auth/revoke": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Revoke Current Session",
         "description": "Revoke the current WorkOS session.",
         "operationId": "auth_revoke_api_v1_auth_revoke_post",
@@ -535,7 +555,9 @@
     },
     "/api/v1/billing_account": {
       "get": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "Get Billing Account Overview",
         "operationId": "get_billing_account_overview_api_v1_billing_account_get",
         "responses": {
@@ -555,7 +577,9 @@
     },
     "/api/v1/billing_account/invoices": {
       "get": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "List Billing Account Invoices",
         "operationId": "list_billing_account_invoices_api_v1_billing_account_invoices_get",
         "parameters": [
@@ -646,7 +670,9 @@
     },
     "/api/v1/billing_account/invoices/{billing_period_invoice_id}": {
       "get": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "Get Billing Account Invoice By ID",
         "operationId": "get_billing_account_invoice_api_v1_billing_account_invoices__billing_period_invoice_id__get",
         "parameters": [
@@ -688,7 +714,9 @@
     },
     "/api/v1/billing_account/invoices/{billing_period_invoice_id}/invoice_pdf_file": {
       "get": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "Get Billing Account Invoice PDF File URL",
         "operationId": "get_billing_account_invoice_pdf_file_api_v1_billing_account_invoices__billing_period_invoice_id__invoice_pdf_file_get",
         "parameters": [
@@ -730,7 +758,9 @@
     },
     "/api/v1/billing_account/invoices/{billing_period_invoice_id}/invoice_url": {
       "get": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "Get Billing Account Hosted Invoice URL",
         "operationId": "get_billing_account_invoice_url_api_v1_billing_account_invoices__billing_period_invoice_id__invoice_url_get",
         "parameters": [
@@ -772,7 +802,9 @@
     },
     "/api/v1/billing_account/checkout_sessions/{session_id}/finalize": {
       "post": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "Finalize Billing Checkout Session",
         "operationId": "finalize_billing_checkout_session_api_v1_billing_account_checkout_sessions__session_id__finalize_post",
         "parameters": [
@@ -813,7 +845,9 @@
     },
     "/api/v1/billing_account/change_plan": {
       "post": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "Create Billing Plan Change Portal URL",
         "operationId": "create_billing_plan_change_portal_url_api_v1_billing_account_change_plan_post",
         "responses": {
@@ -833,7 +867,9 @@
     },
     "/api/v1/billing_account/change_payment_method": {
       "post": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "Create Billing Payment Method Change Portal URL",
         "operationId": "create_billing_payment_method_change_portal_url_api_v1_billing_account_change_payment_method_post",
         "responses": {
@@ -853,7 +889,9 @@
     },
     "/api/v1/billing_account/cancel": {
       "post": {
-        "tags": ["Billing Account"],
+        "tags": [
+          "Billing Account"
+        ],
         "summary": "Cancel Billing Subscription",
         "operationId": "cancel_billing_subscription_api_v1_billing_account_cancel_post",
         "responses": {
@@ -873,7 +911,9 @@
     },
     "/api/v1/billing_plans/": {
       "get": {
-        "tags": ["Billing Plans"],
+        "tags": [
+          "Billing Plans"
+        ],
         "summary": "List Available Billing Plans",
         "operationId": "list_billing_plans_api_v1_billing_plans__get",
         "parameters": [
@@ -964,7 +1004,9 @@
     },
     "/api/v1/billing_plans/{billing_plan_id}": {
       "get": {
-        "tags": ["Billing Plans"],
+        "tags": [
+          "Billing Plans"
+        ],
         "summary": "Get Billing Plan By ID",
         "operationId": "get_billing_plan_by_id_api_v1_billing_plans__billing_plan_id__get",
         "parameters": [
@@ -1006,7 +1048,9 @@
     },
     "/api/v1/billing_plans/{billing_plan_id}/checkout_url": {
       "post": {
-        "tags": ["Billing Plans"],
+        "tags": [
+          "Billing Plans"
+        ],
         "summary": "Create Billing Plan Checkout URL",
         "operationId": "create_billing_plan_checkout_url_api_v1_billing_plans__billing_plan_id__checkout_url_post",
         "parameters": [
@@ -1057,7 +1101,9 @@
     },
     "/api/v1/cors_origins/": {
       "get": {
-        "tags": ["CORS Origins"],
+        "tags": [
+          "CORS Origins"
+        ],
         "summary": "List CORS Origins",
         "operationId": "list_cors_origins_api_v1_cors_origins__get",
         "parameters": [
@@ -1166,7 +1212,9 @@
         "x-codegen-sdk-pagination": "offset_headers"
       },
       "post": {
-        "tags": ["CORS Origins"],
+        "tags": [
+          "CORS Origins"
+        ],
         "summary": "Create CORS Origin",
         "operationId": "create_cors_origin_api_v1_cors_origins__post",
         "parameters": [
@@ -1227,7 +1275,9 @@
     },
     "/api/v1/cors_origins/{cors_origin_id}": {
       "get": {
-        "tags": ["CORS Origins"],
+        "tags": [
+          "CORS Origins"
+        ],
         "summary": "Get CORS Origin By ID",
         "operationId": "get_cors_origin_by_id_api_v1_cors_origins__cors_origin_id__get",
         "parameters": [
@@ -1286,7 +1336,9 @@
         "x-codegen-sdk-auth": "server_key"
       },
       "patch": {
-        "tags": ["CORS Origins"],
+        "tags": [
+          "CORS Origins"
+        ],
         "summary": "Update CORS Origin By ID",
         "operationId": "update_cors_origin_by_id_api_v1_cors_origins__cors_origin_id__patch",
         "parameters": [
@@ -1355,7 +1407,9 @@
         "x-codegen-sdk-auth": "server_key"
       },
       "delete": {
-        "tags": ["CORS Origins"],
+        "tags": [
+          "CORS Origins"
+        ],
         "summary": "Delete CORS Origin By ID",
         "operationId": "delete_cors_origin_by_id_api_v1_cors_origins__cors_origin_id__delete",
         "parameters": [
@@ -1420,7 +1474,9 @@
     },
     "/api/v1/custom_domain/": {
       "get": {
-        "tags": ["Custom Domain"],
+        "tags": [
+          "Custom Domain"
+        ],
         "summary": "Get Custom Domain",
         "operationId": "get_custom_domain_api_v1_custom_domain__get",
         "parameters": [
@@ -1469,7 +1525,9 @@
         "x-codegen-sdk-auth": "server_key"
       },
       "delete": {
-        "tags": ["Custom Domain"],
+        "tags": [
+          "Custom Domain"
+        ],
         "summary": "Delete Custom Domain",
         "operationId": "delete_custom_domain_api_v1_custom_domain__delete",
         "parameters": [
@@ -1522,7 +1580,9 @@
         "x-codegen-sdk-auth": "server_key"
       },
       "post": {
-        "tags": ["Custom Domain"],
+        "tags": [
+          "Custom Domain"
+        ],
         "summary": "Create Custom Domain",
         "operationId": "create_custom_domain_api_v1_custom_domain__post",
         "parameters": [
@@ -1583,7 +1643,9 @@
     },
     "/api/v1/custom_domain/test_connection": {
       "post": {
-        "tags": ["Custom Domain"],
+        "tags": [
+          "Custom Domain"
+        ],
         "summary": "Test Custom Domain Connection",
         "operationId": "test_custom_domain_connection_api_v1_custom_domain_test_connection_post",
         "parameters": [
@@ -1634,7 +1696,9 @@
     },
     "/api/v1/environments/": {
       "get": {
-        "tags": ["Environments"],
+        "tags": [
+          "Environments"
+        ],
         "summary": "List Environments",
         "operationId": "list_environments_api_v1_environments__get",
         "parameters": [
@@ -1723,7 +1787,9 @@
         "x-codegen-sdk-ignore": true
       },
       "post": {
-        "tags": ["Environments"],
+        "tags": [
+          "Environments"
+        ],
         "summary": "Create Environment",
         "operationId": "create_environment_api_v1_environments__post",
         "requestBody": {
@@ -1763,7 +1829,9 @@
     },
     "/api/v1/environments/{environment_id}": {
       "get": {
-        "tags": ["Environments"],
+        "tags": [
+          "Environments"
+        ],
         "summary": "Get Environment By ID",
         "operationId": "get_environment_by_id_api_v1_environments__environment_id__get",
         "parameters": [
@@ -1803,7 +1871,9 @@
         "x-codegen-sdk-ignore": true
       },
       "patch": {
-        "tags": ["Environments"],
+        "tags": [
+          "Environments"
+        ],
         "summary": "Update Environment By ID",
         "operationId": "update_environment_by_id_api_v1_environments__environment_id__patch",
         "parameters": [
@@ -1853,7 +1923,9 @@
         "x-codegen-sdk-ignore": true
       },
       "delete": {
-        "tags": ["Environments"],
+        "tags": [
+          "Environments"
+        ],
         "summary": "Delete Environment By ID",
         "operationId": "delete_environment_by_id_api_v1_environments__environment_id__delete",
         "parameters": [
@@ -1899,7 +1971,9 @@
     },
     "/api/v1/images/": {
       "get": {
-        "tags": ["Images"],
+        "tags": [
+          "Images"
+        ],
         "summary": "List Images",
         "operationId": "list_images_api_v1_images__get",
         "parameters": [
@@ -2010,7 +2084,9 @@
     },
     "/api/v1/images/standard_upload": {
       "post": {
-        "tags": ["Images"],
+        "tags": [
+          "Images"
+        ],
         "summary": "Create Standard Upload",
         "operationId": "create_standard_upload_api_v1_images_standard_upload_post",
         "parameters": [
@@ -2087,7 +2163,9 @@
     },
     "/api/v1/images/token": {
       "post": {
-        "tags": ["Images"],
+        "tags": [
+          "Images"
+        ],
         "summary": "Create Upload Token",
         "operationId": "create_upload_token_api_v1_images_token_post",
         "parameters": [
@@ -2138,7 +2216,9 @@
     },
     "/api/v1/images/downloads": {
       "post": {
-        "tags": ["Images"],
+        "tags": [
+          "Images"
+        ],
         "summary": "Create Bulk Image Download Job",
         "operationId": "create_bulk_image_download_job_api_v1_images_downloads_post",
         "parameters": [
@@ -2199,7 +2279,9 @@
     },
     "/api/v1/images/downloads/{image_download_job_id}": {
       "get": {
-        "tags": ["Images"],
+        "tags": [
+          "Images"
+        ],
         "summary": "Get Bulk Image Download Job",
         "operationId": "get_bulk_image_download_job_api_v1_images_downloads__image_download_job_id__get",
         "parameters": [
@@ -2260,7 +2342,9 @@
     },
     "/api/v1/images/bulk_delete": {
       "post": {
-        "tags": ["Images"],
+        "tags": [
+          "Images"
+        ],
         "summary": "Bulk Delete Images",
         "operationId": "bulk_delete_images_api_v1_images_bulk_delete_post",
         "parameters": [
@@ -2325,7 +2409,9 @@
     },
     "/api/v1/images/{image_id}": {
       "get": {
-        "tags": ["Images"],
+        "tags": [
+          "Images"
+        ],
         "summary": "Get Image By ID",
         "operationId": "get_image_by_id_api_v1_images__image_id__get",
         "parameters": [
@@ -2384,7 +2470,9 @@
         "x-codegen-sdk-auth": "server_key"
       },
       "delete": {
-        "tags": ["Images"],
+        "tags": [
+          "Images"
+        ],
         "summary": "Delete Image By ID",
         "operationId": "delete_image_by_id_api_v1_images__image_id__delete",
         "parameters": [
@@ -2449,7 +2537,9 @@
     },
     "/api/v1/legal-documents/current": {
       "get": {
-        "tags": ["Legal Documents"],
+        "tags": [
+          "Legal Documents"
+        ],
         "summary": "Get Current Legal Document",
         "operationId": "get_current_legal_document_api_v1_legal_documents_current_get",
         "parameters": [
@@ -2489,7 +2579,9 @@
     },
     "/api/v1/legal-documents/current-bundle": {
       "get": {
-        "tags": ["Legal Documents"],
+        "tags": [
+          "Legal Documents"
+        ],
         "summary": "Get Current Legal Document Bundle",
         "operationId": "get_current_legal_document_bundle_api_v1_legal_documents_current_bundle_get",
         "responses": {
@@ -2509,7 +2601,9 @@
     },
     "/api/v1/legal-documents/{document_id}": {
       "get": {
-        "tags": ["Legal Documents"],
+        "tags": [
+          "Legal Documents"
+        ],
         "summary": "Get Legal Document By ID",
         "operationId": "get_legal_document_by_id_api_v1_legal_documents__document_id__get",
         "parameters": [
@@ -2551,7 +2645,9 @@
     },
     "/api/v1/metrics/datasets": {
       "get": {
-        "tags": ["Metrics"],
+        "tags": [
+          "Metrics"
+        ],
         "summary": "Get Metrics Datasets",
         "operationId": "get_metrics_datasets_api_v1_metrics_datasets_get",
         "parameters": [
@@ -2655,7 +2751,9 @@
     },
     "/api/v1/metrics/stats": {
       "get": {
-        "tags": ["Metrics"],
+        "tags": [
+          "Metrics"
+        ],
         "summary": "Get Metrics Stats",
         "operationId": "get_metrics_stats_api_v1_metrics_stats_get",
         "parameters": [
@@ -2759,7 +2857,9 @@
     },
     "/api/v1/organizations/": {
       "get": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "List Organizations",
         "operationId": "list_organizations_api_v1_organizations__get",
         "parameters": [
@@ -2848,7 +2948,9 @@
         "x-codegen-sdk-ignore": true
       },
       "post": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Create Organization",
         "operationId": "create_organization_api_v1_organizations__post",
         "requestBody": {
@@ -2888,7 +2990,9 @@
     },
     "/api/v1/organizations/{organization_id}": {
       "get": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Get Organization By ID",
         "operationId": "get_organization_by_id_api_v1_organizations__organization_id__get",
         "parameters": [
@@ -2928,7 +3032,9 @@
         "x-codegen-sdk-ignore": true
       },
       "patch": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Update Organization By ID",
         "operationId": "update_organization_by_id_api_v1_organizations__organization_id__patch",
         "parameters": [
@@ -2978,7 +3084,9 @@
         "x-codegen-sdk-ignore": true
       },
       "delete": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Delete Organization By ID",
         "operationId": "delete_organization_by_id_api_v1_organizations__organization_id__delete",
         "parameters": [
@@ -3024,7 +3132,9 @@
     },
     "/api/v1/organizations/{organization_id}/members": {
       "get": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "List Organization Members",
         "operationId": "list_organization_members_api_v1_organizations__organization_id__members_get",
         "parameters": [
@@ -3125,7 +3235,9 @@
     },
     "/api/v1/organizations/{organization_id}/members/{membership_id}": {
       "get": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Get Organization Member By ID",
         "operationId": "get_organization_member_by_id_api_v1_organizations__organization_id__members__membership_id__get",
         "parameters": [
@@ -3175,7 +3287,9 @@
         "x-codegen-sdk-ignore": true
       },
       "patch": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Update Organization Member By ID",
         "operationId": "update_organization_member_by_id_api_v1_organizations__organization_id__members__membership_id__patch",
         "parameters": [
@@ -3235,7 +3349,9 @@
         "x-codegen-sdk-ignore": true
       },
       "delete": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Delete Organization Member By ID",
         "operationId": "delete_organization_member_by_id_api_v1_organizations__organization_id__members__membership_id__delete",
         "parameters": [
@@ -3291,7 +3407,9 @@
     },
     "/api/v1/organizations/{organization_id}/members/{membership_id}/alert_settings": {
       "patch": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Update Organization Member Alert Settings By ID",
         "operationId": "update_organization_member_alert_settings_by_id_api_v1_organizations__organization_id__members__membership_id__alert_settings_patch",
         "parameters": [
@@ -3353,7 +3471,9 @@
     },
     "/api/v1/organizations/{organization_id}/invitations": {
       "get": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "List Organization Invitations",
         "operationId": "list_organization_invitations_api_v1_organizations__organization_id__invitations_get",
         "parameters": [
@@ -3452,7 +3572,9 @@
         "x-codegen-sdk-ignore": true
       },
       "post": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Create Organization Invitation",
         "operationId": "create_organization_invitation_api_v1_organizations__organization_id__invitations_post",
         "parameters": [
@@ -3504,7 +3626,9 @@
     },
     "/api/v1/organizations/{organization_id}/invitations/{invitation_id}": {
       "delete": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Delete Organization Invitation By ID",
         "operationId": "delete_organization_invitation_by_id_api_v1_organizations__organization_id__invitations__invitation_id__delete",
         "parameters": [
@@ -3560,7 +3684,9 @@
     },
     "/api/v1/organizations/{organization_id}/legal-acceptances": {
       "post": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Create Organization Legal Acceptance",
         "operationId": "create_organization_legal_acceptance_api_v1_organizations__organization_id__legal_acceptances_post",
         "parameters": [
@@ -3610,7 +3736,9 @@
         "x-codegen-sdk-ignore": true
       },
       "get": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "List Organization Legal Acceptances",
         "operationId": "list_organization_legal_acceptances_api_v1_organizations__organization_id__legal_acceptances_get",
         "parameters": [
@@ -3656,7 +3784,9 @@
     },
     "/api/v1/organizations/{organization_id}/legal-acceptance-status": {
       "get": {
-        "tags": ["Organizations"],
+        "tags": [
+          "Organizations"
+        ],
         "summary": "Get Organization Legal Acceptance Status",
         "operationId": "get_organization_legal_acceptance_status_api_v1_organizations__organization_id__legal_acceptance_status_get",
         "parameters": [
@@ -3706,7 +3836,9 @@
     },
     "/api/v1/users/": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Get User Profile",
         "operationId": "get_user_profile_api_v1_users__get",
         "responses": {
@@ -3724,7 +3856,9 @@
         "x-codegen-sdk-ignore": true
       },
       "patch": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Update User Profile",
         "operationId": "update_user_profile_api_v1_users__patch",
         "requestBody": {
@@ -3764,7 +3898,9 @@
     },
     "/api/v1/users/init_verify_email": {
       "post": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Trigger Email Verification",
         "operationId": "init_verify_email_api_v1_users_init_verify_email_post",
         "responses": {
@@ -3788,7 +3924,9 @@
     },
     "/api/v1/users/verify_email": {
       "post": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Verify Email Address",
         "operationId": "verify_email_api_v1_users_verify_email_post",
         "requestBody": {
@@ -3828,7 +3966,9 @@
     },
     "/api/v1/webhooks/cloudflare": {
       "post": {
-        "tags": ["Webhooks"],
+        "tags": [
+          "Webhooks"
+        ],
         "summary": "Receive Cloudflare webhook events",
         "operationId": "receive_cloudflare_webhook_api_v1_webhooks_cloudflare_post",
         "responses": {
@@ -3846,7 +3986,9 @@
     },
     "/api/v1/webhooks/stripe": {
       "post": {
-        "tags": ["Webhooks"],
+        "tags": [
+          "Webhooks"
+        ],
         "summary": "Receive Stripe webhook events",
         "operationId": "receive_stripe_webhook_api_v1_webhooks_stripe_post",
         "responses": {
@@ -3864,7 +4006,9 @@
     },
     "/api/v1/webhooks/workos": {
       "post": {
-        "tags": ["Webhooks"],
+        "tags": [
+          "Webhooks"
+        ],
         "summary": "Receive WorkOS webhook events",
         "operationId": "receive_workos_webhook_api_v1_webhooks_workos_post",
         "responses": {
@@ -3908,7 +4052,10 @@
     "schemas": {
       "AcceptanceMethod": {
         "type": "string",
-        "enum": ["CLICKWRAP", "CONTRACT_IMPORT"],
+        "enum": [
+          "CLICKWRAP",
+          "CONTRACT_IMPORT"
+        ],
         "title": "AcceptanceMethod",
         "description": "Represents how a legal document was accepted."
       },
@@ -4113,7 +4260,10 @@
           }
         },
         "type": "object",
-        "required": ["name", "key_type"],
+        "required": [
+          "name",
+          "key_type"
+        ],
         "title": "ApiKeyCreateSchema"
       },
       "ApiKeyListItemSchema": {
@@ -4238,7 +4388,10 @@
       },
       "ApiKeyType": {
         "type": "string",
-        "enum": ["CLIENT", "SERVER"],
+        "enum": [
+          "CLIENT",
+          "SERVER"
+        ],
         "title": "ApiKeyType",
         "description": "Represents the kind of API key being stored."
       },
@@ -4389,7 +4542,10 @@
           }
         },
         "type": "object",
-        "required": ["access_token", "refresh_token"],
+        "required": [
+          "access_token",
+          "refresh_token"
+        ],
         "title": "AuthCallbackResponse"
       },
       "AuthInitResponse": {
@@ -4400,7 +4556,9 @@
           }
         },
         "type": "object",
-        "required": ["authorization_url"],
+        "required": [
+          "authorization_url"
+        ],
         "title": "AuthInitResponse"
       },
       "BillingAccountInvoiceSchema": {
@@ -4718,7 +4876,11 @@
           }
         },
         "type": "object",
-        "required": ["used", "limit", "percent_used"],
+        "required": [
+          "used",
+          "limit",
+          "percent_used"
+        ],
         "title": "BillingAccountUsageMetricSchema"
       },
       "BillingAccountUsageOverviewSchema": {
@@ -4821,7 +4983,10 @@
       },
       "BillingCheckoutSessionPlanType": {
         "type": "string",
-        "enum": ["MONTHLY", "ANNUAL"],
+        "enum": [
+          "MONTHLY",
+          "ANNUAL"
+        ],
         "title": "BillingCheckoutSessionPlanType",
         "description": "Represents the billing cadence selected for checkout."
       },
@@ -4846,7 +5011,9 @@
           }
         },
         "type": "object",
-        "required": ["invoice_pdf_file_url"],
+        "required": [
+          "invoice_pdf_file_url"
+        ],
         "title": "BillingInvoicePdfFileSchema"
       },
       "BillingInvoiceUrlSchema": {
@@ -4857,12 +5024,19 @@
           }
         },
         "type": "object",
-        "required": ["invoice_url"],
+        "required": [
+          "invoice_url"
+        ],
         "title": "BillingInvoiceUrlSchema"
       },
       "BillingPeriodInvoiceStatus": {
         "type": "string",
-        "enum": ["PENDING", "PAID", "UNPAID", "DELINQUENT"],
+        "enum": [
+          "PENDING",
+          "PAID",
+          "UNPAID",
+          "DELINQUENT"
+        ],
         "title": "BillingPeriodInvoiceStatus",
         "description": "Billing states for Stripe invoices."
       },
@@ -4874,7 +5048,9 @@
           }
         },
         "type": "object",
-        "required": ["checkout_url"],
+        "required": [
+          "checkout_url"
+        ],
         "title": "BillingPlanCheckoutUrlSchema"
       },
       "BillingPlanSchema": {
@@ -4986,7 +5162,9 @@
           }
         },
         "type": "object",
-        "required": ["portal_url"],
+        "required": [
+          "portal_url"
+        ],
         "title": "BillingPortalUrlSchema"
       },
       "BillingSubscriptionCancelSchema": {
@@ -5049,7 +5227,9 @@
           }
         },
         "type": "object",
-        "required": ["image_ids"],
+        "required": [
+          "image_ids"
+        ],
         "title": "BulkDeleteImagesSchema"
       },
       "CacheHitRatioDatasetPointSchema": {
@@ -5064,7 +5244,10 @@
           }
         },
         "type": "object",
-        "required": ["label", "value"],
+        "required": [
+          "label",
+          "value"
+        ],
         "title": "CacheHitRatioDatasetPointSchema"
       },
       "CorsOriginCreateSchema": {
@@ -5076,7 +5259,9 @@
           }
         },
         "type": "object",
-        "required": ["pattern"],
+        "required": [
+          "pattern"
+        ],
         "title": "CorsOriginCreateSchema"
       },
       "CorsOriginSchema": {
@@ -5125,7 +5310,9 @@
           }
         },
         "type": "object",
-        "required": ["pattern"],
+        "required": [
+          "pattern"
+        ],
         "title": "CorsOriginUpdateSchema"
       },
       "CurrentTermsDocumentBundleSchema": {
@@ -5139,7 +5326,9 @@
           }
         },
         "type": "object",
-        "required": ["documents"],
+        "required": [
+          "documents"
+        ],
         "title": "CurrentTermsDocumentBundleSchema"
       },
       "CurrentTermsDocumentSchema": {
@@ -5245,7 +5434,11 @@
       },
       "CustomDomainCertificateStatus": {
         "type": "string",
-        "enum": ["PENDING", "ACTIVE", "FAILING"],
+        "enum": [
+          "PENDING",
+          "ACTIVE",
+          "FAILING"
+        ],
         "title": "CustomDomainCertificateStatus",
         "description": "Represents SSL certificate status for custom domains."
       },
@@ -5257,7 +5450,9 @@
           }
         },
         "type": "object",
-        "required": ["hostname"],
+        "required": [
+          "hostname"
+        ],
         "title": "CustomDomainCreateSchema"
       },
       "CustomDomainSchema": {
@@ -5340,7 +5535,11 @@
       },
       "CustomDomainStatus": {
         "type": "string",
-        "enum": ["PENDING", "CONNECTED", "FAILED"],
+        "enum": [
+          "PENDING",
+          "CONNECTED",
+          "FAILED"
+        ],
         "title": "CustomDomainStatus",
         "description": "Represents connection status for custom domains."
       },
@@ -5353,7 +5552,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "EnvironmentCreateSchema"
       },
       "EnvironmentSchema": {
@@ -5414,7 +5615,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "EnvironmentUpdateSchema"
       },
       "HTTPValidationError": {
@@ -5443,7 +5646,9 @@
           }
         },
         "type": "object",
-        "required": ["image_ids"],
+        "required": [
+          "image_ids"
+        ],
         "title": "ImageDownloadJobCreateSchema"
       },
       "ImageDownloadJobSchema": {
@@ -5512,7 +5717,12 @@
       },
       "ImageDownloadStatus": {
         "type": "string",
-        "enum": ["PENDING", "PROCESSING", "READY", "FAILED"],
+        "enum": [
+          "PENDING",
+          "PROCESSING",
+          "READY",
+          "FAILED"
+        ],
         "title": "ImageDownloadStatus",
         "description": "Represents the download state for a bulk image download job."
       },
@@ -5697,13 +5907,23 @@
       },
       "ImageStatus": {
         "type": "string",
-        "enum": ["PENDING", "PROCESSING", "READY", "QUARANTINE"],
+        "enum": [
+          "PENDING",
+          "PROCESSING",
+          "READY",
+          "QUARANTINE"
+        ],
         "title": "ImageStatus",
         "description": "Represents the processing state for an image."
       },
       "MetricsDatasetInterval": {
         "type": "string",
-        "enum": ["HOURLY", "DAILY", "WEEKLY", "MONTHLY"],
+        "enum": [
+          "HOURLY",
+          "DAILY",
+          "WEEKLY",
+          "MONTHLY"
+        ],
         "title": "MetricsDatasetInterval",
         "description": "Represents a chart aggregation interval for metrics datasets."
       },
@@ -5786,7 +6006,11 @@
           }
         },
         "type": "object",
-        "required": ["value", "prev", "pct_change"],
+        "required": [
+          "value",
+          "prev",
+          "pct_change"
+        ],
         "title": "MetricsStatValueSchema"
       },
       "MetricsStatsSchema": {
@@ -5829,12 +6053,18 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "OrganizationCreateSchema"
       },
       "OrganizationEnforcementMode": {
         "type": "string",
-        "enum": ["SERVE_ALL", "SERVE_CACHED_ONLY", "BLOCK_ALL"],
+        "enum": [
+          "SERVE_ALL",
+          "SERVE_CACHED_ONLY",
+          "BLOCK_ALL"
+        ],
         "title": "OrganizationEnforcementMode",
         "description": "Represents how an organization's environments should be enforced."
       },
@@ -5849,12 +6079,19 @@
           }
         },
         "type": "object",
-        "required": ["email", "role"],
+        "required": [
+          "email",
+          "role"
+        ],
         "title": "OrganizationInvitationCreateSchema"
       },
       "OrganizationInvitationRole": {
         "type": "string",
-        "enum": ["OWNER", "ADMIN", "DEVELOPER"],
+        "enum": [
+          "OWNER",
+          "ADMIN",
+          "DEVELOPER"
+        ],
         "title": "OrganizationInvitationRole",
         "description": "Represents roles for organization invitations."
       },
@@ -5905,7 +6142,9 @@
           }
         },
         "type": "object",
-        "required": ["usage_limit_alerts_enabled"],
+        "required": [
+          "usage_limit_alerts_enabled"
+        ],
         "title": "OrganizationMemberAlertSettingsUpdateSchema"
       },
       "OrganizationMemberSchema": {
@@ -5954,7 +6193,9 @@
           }
         },
         "type": "object",
-        "required": ["role"],
+        "required": [
+          "role"
+        ],
         "title": "OrganizationMemberUpdateSchema"
       },
       "OrganizationMemberUserSchema": {
@@ -5992,12 +6233,21 @@
           }
         },
         "type": "object",
-        "required": ["id", "email", "first_name", "last_name"],
+        "required": [
+          "id",
+          "email",
+          "first_name",
+          "last_name"
+        ],
         "title": "OrganizationMemberUserSchema"
       },
       "OrganizationMembershipRole": {
         "type": "string",
-        "enum": ["OWNER", "ADMIN", "DEVELOPER"],
+        "enum": [
+          "OWNER",
+          "ADMIN",
+          "DEVELOPER"
+        ],
         "title": "OrganizationMembershipRole",
         "description": "Represents roles for organization members."
       },
@@ -6240,7 +6490,13 @@
       },
       "OrganizationSubscriptionStatus": {
         "type": "string",
-        "enum": ["INACTIVE", "TRIALING", "ACTIVE", "PAST_DUE", "CANCELED"],
+        "enum": [
+          "INACTIVE",
+          "TRIALING",
+          "ACTIVE",
+          "PAST_DUE",
+          "CANCELED"
+        ],
         "title": "OrganizationSubscriptionStatus",
         "description": "Represents billing states for organizations."
       },
@@ -6297,7 +6553,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "OrganizationUpdateSchema"
       },
       "RequestsDatasetPointSchema": {
@@ -6313,7 +6571,10 @@
           }
         },
         "type": "object",
-        "required": ["timestamp", "requests"],
+        "required": [
+          "timestamp",
+          "requests"
+        ],
         "title": "RequestsDatasetPointSchema"
       },
       "StandardUploadCreateSchema": {
@@ -6406,7 +6667,9 @@
           }
         },
         "type": "object",
-        "required": ["file_name"],
+        "required": [
+          "file_name"
+        ],
         "title": "StandardUploadCreateSchema"
       },
       "StandardUploadResponseSchema": {
@@ -6420,7 +6683,10 @@
           }
         },
         "type": "object",
-        "required": ["image", "upload_url"],
+        "required": [
+          "image",
+          "upload_url"
+        ],
         "title": "StandardUploadResponseSchema"
       },
       "StorageBytesDatasetPointSchema": {
@@ -6482,7 +6748,10 @@
           }
         },
         "type": "object",
-        "required": ["terms_document_id", "acceptance_method"],
+        "required": [
+          "terms_document_id",
+          "acceptance_method"
+        ],
         "title": "TermsAcceptanceCreateSchema"
       },
       "TermsAcceptanceSchema": {
@@ -6740,7 +7009,10 @@
       },
       "TermsDocumentType": {
         "type": "string",
-        "enum": ["TOS", "PRIVACY_POLICY"],
+        "enum": [
+          "TOS",
+          "PRIVACY_POLICY"
+        ],
         "title": "TermsDocumentType",
         "description": "Represents the type of legal document."
       },
@@ -6757,7 +7029,10 @@
           }
         },
         "type": "object",
-        "required": ["timestamp", "transfer_bytes"],
+        "required": [
+          "timestamp",
+          "transfer_bytes"
+        ],
         "title": "TransferBytesDatasetPointSchema"
       },
       "TransformationsDatasetPointSchema": {
@@ -6773,7 +7048,10 @@
           }
         },
         "type": "object",
-        "required": ["timestamp", "transformations"],
+        "required": [
+          "timestamp",
+          "transformations"
+        ],
         "title": "TransformationsDatasetPointSchema"
       },
       "UploadTokenCreateResponseSchema": {
@@ -6845,7 +7123,10 @@
           }
         },
         "type": "object",
-        "required": ["timestamp", "uploads"],
+        "required": [
+          "timestamp",
+          "uploads"
+        ],
         "title": "UploadsDatasetPointSchema"
       },
       "UserResponse": {
@@ -6983,7 +7264,11 @@
           }
         },
         "type": "object",
-        "required": ["loc", "msg", "type"],
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
         "title": "ValidationError"
       },
       "VerifyEmailRequest": {
@@ -6994,7 +7279,9 @@
           }
         },
         "type": "object",
-        "required": ["code"],
+        "required": [
+          "code"
+        ],
         "title": "VerifyEmailRequest",
         "description": "Request body for verifying a user's email."
       }
