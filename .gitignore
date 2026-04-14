@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.openapi-generator/
+.openapi-generator-ignore
+coverage/
+tmp/
+openapi/.sdk.openapi.generator.json

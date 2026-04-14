@@ -1,0 +1,49 @@
+{
+  "name": "@imgwire/js",
+  "version": "0.1.0",
+  "description": "Browser-first JavaScript/TypeScript SDK for the imgwire API.",
+  "license": "UNLICENSED",
+  "packageManager": "npm@11.6.2",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "generated",
+    "openapi",
+    "CODEGEN_VERSION",
+    "README.md"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "generate": "tsx scripts/generate.ts",
+    "postprocess": "tsx scripts/postprocess.ts",
+    "verify-generated": "tsx scripts/verify-generated.ts",
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "ci": "npm run verify-generated && npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@imgwire/codegen-core": "file:../imgwire-codegen-core"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "2.13.4",
+    "@types/node": "24.9.1",
+    "tsup": "8.3.5",
+    "tsx": "4.19.2",
+    "typescript": "5.9.3",
+    "vitest": "2.1.8"
+  }
+}
