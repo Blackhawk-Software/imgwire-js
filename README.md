@@ -1,5 +1,9 @@
 # imgwire-js
 
+[![npm version](https://img.shields.io/npm/v/%40imgwire%2Fjs)](https://www.npmjs.com/package/@imgwire/js)
+[![CI](https://github.com/Blackhawk-Software/imgwire-js/actions/workflows/ci.yml/badge.svg)](https://github.com/Blackhawk-Software/imgwire-js/actions/workflows/ci.yml)
+[![Release](https://github.com/Blackhawk-Software/imgwire-js/actions/workflows/release.yml/badge.svg)](https://github.com/Blackhawk-Software/imgwire-js/actions/workflows/release.yml)
+
 `@imgwire/js` is the browser-first JavaScript/TypeScript SDK for the imgwire API.
 
 Imgwire helps you upload, serve, and transform images in your app without building and maintaining the image infrastructure yourself. Use `@imgwire/js` to send files from the browser, generate optimized CDN URLs, and ship image-heavy product flows without wiring together object storage, signing, delivery, and transformation logic by hand.
