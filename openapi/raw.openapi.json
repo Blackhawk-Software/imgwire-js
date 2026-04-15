@@ -2467,7 +2467,7 @@
         },
         "x-codegen-sdk-group-name": "images",
         "x-codegen-sdk-method-name": "retrieve",
-        "x-codegen-sdk-auth": "server_key"
+        "x-codegen-sdk-auth": "server_or_client_key"
       },
       "delete": {
         "tags": [

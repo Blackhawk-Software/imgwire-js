@@ -86,6 +86,17 @@ Precedence order for upload tokens:
 2. `getUploadToken` passed directly to `images.upload(...)`
 3. `getUploadToken` configured on `ImgwireClient`
 
+## Fetching Images By ID
+
+Use `client.images.fetch(id)` when you already have an imgwire image id and want to retrieve the image record with the same URL helper surface used by uploads:
+
+```ts
+const image = await client.images.fetch("img_123");
+
+const imageUrl = image.url({ rotate: 90 });
+const thumbnailUrl = image.url({ preset: "thumbnail" });
+```
+
 ## Image Transformation URLs
 
 Returned image objects expose a `url(...)` helper that builds transformed CDN urls:

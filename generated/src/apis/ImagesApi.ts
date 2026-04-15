@@ -16,14 +16,18 @@
 import * as runtime from '../runtime';
 import type {
   HTTPValidationError,
+  ImageSchema,
   StandardUploadCreateSchema,
   StandardUploadResponseSchema,
 } from '../models/index';
 
 export interface ImagesCreateRequest {
     standardUploadCreateSchema: StandardUploadCreateSchema;
-    xEnvironmentId?: string | null;
     uploadToken?: string | null;
+}
+
+export interface ImagesRetrieveRequest {
+    imageId: string;
 }
 
 /**
@@ -37,7 +41,6 @@ export interface ImagesApiInterface {
      * 
      * @summary Create Standard Upload
      * @param {StandardUploadCreateSchema} standardUploadCreateSchema 
-     * @param {string} [xEnvironmentId] 
      * @param {string} [uploadToken] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -49,6 +52,21 @@ export interface ImagesApiInterface {
      * Create Standard Upload
      */
     imagesCreate(requestParameters: ImagesCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StandardUploadResponseSchema>;
+
+    /**
+     * 
+     * @summary Get Image By ID
+     * @param {string} imageId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImagesApiInterface
+     */
+    imagesRetrieveRaw(requestParameters: ImagesRetrieveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ImageSchema>>;
+
+    /**
+     * Get Image By ID
+     */
+    imagesRetrieve(requestParameters: ImagesRetrieveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ImageSchema>;
 
 }
 
@@ -78,10 +96,6 @@ export class ImagesApi extends runtime.BaseAPI implements ImagesApiInterface {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xEnvironmentId'] != null) {
-            headerParameters['X-Environment-Id'] = String(requestParameters['xEnvironmentId']);
-        }
-
 
         let urlPath = `/api/v1/images/standard_upload`;
 
@@ -101,6 +115,43 @@ export class ImagesApi extends runtime.BaseAPI implements ImagesApiInterface {
      */
     async imagesCreate(requestParameters: ImagesCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StandardUploadResponseSchema> {
         const response = await this.imagesCreateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Image By ID
+     */
+    async imagesRetrieveRaw(requestParameters: ImagesRetrieveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ImageSchema>> {
+        if (requestParameters['imageId'] == null) {
+            throw new runtime.RequiredError(
+                'imageId',
+                'Required parameter "imageId" was null or undefined when calling imagesRetrieve().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+
+        let urlPath = `/api/v1/images/{image_id}`;
+        urlPath = urlPath.replace(`{${"image_id"}}`, encodeURIComponent(String(requestParameters['imageId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * Get Image By ID
+     */
+    async imagesRetrieve(requestParameters: ImagesRetrieveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ImageSchema> {
+        const response = await this.imagesRetrieveRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

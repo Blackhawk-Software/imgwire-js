@@ -1,6 +1,7 @@
 import {
   ImagesApi,
-  type ImagesCreateRequest
+  type ImagesCreateRequest,
+  type ImagesRetrieveRequest
 } from "../../generated/src/apis/ImagesApi.ts";
 import type {
   ImageSchema,
@@ -19,7 +20,6 @@ import {
 } from "../http/upload-with-progress.ts";
 
 export type ImagesCreateOptions = {
-  environmentId?: string | null;
   uploadToken?: string | null;
   requestInit?: RequestInit;
 };
@@ -34,6 +34,10 @@ export type ImagesUploadOptions = ImagesCreateOptions & {
   onProgress?: (progress: UploadProgress) => void;
   purpose?: string | null;
   signal?: AbortSignal;
+};
+
+export type ImagesFetchOptions = {
+  requestInit?: RequestInit;
 };
 
 export type StandardUploadResponse = Omit<
@@ -67,8 +71,7 @@ export class ImagesResource {
   ): Promise<StandardUploadResponse> {
     const request: ImagesCreateRequest = {
       standardUploadCreateSchema: body,
-      uploadToken: options?.uploadToken,
-      xEnvironmentId: options?.environmentId
+      uploadToken: options?.uploadToken
     };
 
     return this.api
@@ -114,6 +117,19 @@ export class ImagesResource {
     });
 
     return response.image;
+  }
+
+  fetch(
+    imageId: string,
+    options?: ImagesFetchOptions
+  ): Promise<ImgwireImage> {
+    const request: ImagesRetrieveRequest = {
+      imageId
+    };
+
+    return this.api
+      .imagesRetrieve(request, options?.requestInit)
+      .then(extendImage);
   }
 }
 
