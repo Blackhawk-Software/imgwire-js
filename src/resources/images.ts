@@ -119,10 +119,7 @@ export class ImagesResource {
     return response.image;
   }
 
-  fetch(
-    imageId: string,
-    options?: ImagesFetchOptions
-  ): Promise<ImgwireImage> {
+  fetch(imageId: string, options?: ImagesFetchOptions): Promise<ImgwireImage> {
     const request: ImagesRetrieveRequest = {
       imageId
     };
