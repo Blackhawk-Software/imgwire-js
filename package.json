@@ -1,9 +1,9 @@
 {
   "name": "@imgwire/js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Browser-first JavaScript/TypeScript SDK for the imgwire API.",
   "license": "MIT",
-  "packageManager": "npm@11.6.2",
+  "packageManager": "yarn@1.22.22",
   "type": "module",
   "sideEffects": false,
   "repository": {
@@ -46,7 +46,7 @@
     "release:verify-tag": "node scripts/release.mjs verify-tag",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "ci": "npm run verify-generated && npm run typecheck && npm run test && npm run build"
+    "ci": "yarn verify-generated && yarn typecheck && yarn test && yarn build"
   },
   "devDependencies": {
     "@imgwire/codegen-core": "^0.1.2",

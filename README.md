@@ -7,7 +7,7 @@ Imgwire helps you upload, serve, and transform images in your app without buildi
 ## Installation
 
 ```bash
-npm install @imgwire/js
+yarn add @imgwire/js
 ```
 
 ## Quick Start
@@ -173,9 +173,9 @@ image.url({ extend: "true:ce:0:0", background: "255:255:255" });
 ## Development
 
 ```bash
-npm install
-npm run generate
-npm run ci
+yarn install
+yarn generate
+yarn ci
 ```
 
 ## Generation
@@ -195,7 +195,7 @@ Set `OPENAPI_SOURCE` to override the spec source. By default:
 - release-oriented generation can use `https://api.imgwire.dev/openapi.json` by setting `OPENAPI_RELEASE=true`
 
 ```bash
-npm run generate
+yarn generate
 ```
 
 This writes:

@@ -2,7 +2,6 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const packageJsonPath = resolve(process.cwd(), "package.json");
-const packageLockPath = resolve(process.cwd(), "package-lock.json");
 
 const command = process.argv[2];
 
@@ -31,18 +30,9 @@ function prepareRelease(version) {
   packageJson.version = version;
   writeJson(packageJsonPath, packageJson);
 
-  const packageLock = readJson(packageLockPath);
-  packageLock.version = version;
-  if (packageLock.packages?.[""]) {
-    packageLock.packages[""].version = version;
-  }
-  writeJson(packageLockPath, packageLock);
-
-  console.log(
-    `Updated package.json and package-lock.json to version ${version}.`
-  );
+  console.log(`Updated package.json to version ${version}.`);
   console.log("Next steps:");
-  console.log("1. Run npm run ci.");
+  console.log("1. Run yarn ci.");
   console.log("2. Review the diff.");
   console.log(`3. Commit and push the version bump.`);
   console.log(`4. Publish or tag a release for v${version}.`);
@@ -50,7 +40,7 @@ function prepareRelease(version) {
 
 function verifyTag(tag) {
   if (!tag) {
-    fail("Missing release tag. Usage: npm run release:verify-tag -- v0.1.0");
+    fail("Missing release tag. Usage: yarn release:verify-tag v0.1.0");
   }
 
   const packageJson = readJson(packageJsonPath);
@@ -83,8 +73,8 @@ function isValidSemver(version) {
 
 function printUsageAndExit() {
   console.error("Usage:");
-  console.error("  npm run release:prepare -- <version>");
-  console.error("  npm run release:verify-tag -- <tag>");
+  console.error("  yarn release:prepare <version>");
+  console.error("  yarn release:verify-tag <tag>");
   process.exit(1);
 }
 

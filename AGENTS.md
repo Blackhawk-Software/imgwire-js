@@ -10,7 +10,7 @@ This repository is the browser-first `imgwire-js` SDK pipeline.
 - Durable handwritten SDK code lives in `src/`.
 - Pipeline scripts live in `scripts/`.
 - Contributors must run the generation scripts instead of patching generated artifacts directly.
-- CI runs `npm run verify-generated` and fails when generated outputs, transformed specs, or `CODEGEN_VERSION` are stale.
+- CI runs `yarn verify-generated` and fails when generated outputs, transformed specs, or `CODEGEN_VERSION` are stale.
 
 ## Repo Boundaries
 
