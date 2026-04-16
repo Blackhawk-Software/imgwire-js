@@ -130,6 +130,7 @@ describe("ImgwireClient", () => {
       method: string;
       url: string;
       headers: Record<string, string>;
+      body: ArrayBuffer | Blob | Uint8Array | undefined;
     }> = [];
     const xhrFactory = () =>
       new MockXmlHttpRequest(xhrRequests) as unknown as XMLHttpRequest;
@@ -164,7 +165,8 @@ describe("ImgwireClient", () => {
         url: "https://uploads.imgwire.dev/example",
         headers: {
           "Content-Type": "image/png"
-        }
+        },
+        body: file
       }
     ]);
     const requestInit = fetchMock.mock.calls[0]?.[1] as RequestInit;
@@ -465,6 +467,139 @@ describe("ImgwireClient", () => {
       })
     ).toBe("https://cdn.imgwire.dev/uploaded.png?rotate=90");
   });
+
+  it("uploads raw binary data without depending on File", async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          image: {
+            cdn_url: "https://cdn.imgwire.dev/example.png",
+            created_at: "2026-04-14T00:00:00Z",
+            custom_metadata: {},
+            deleted_at: null,
+            environment_id: null,
+            exif_data: {},
+            extension: "png",
+            hash_sha256: null,
+            height: 1,
+            id: "img_raw_123",
+            idempotency_key: null,
+            mime_type: "image/png",
+            original_filename: "hero.png",
+            processed_metadata_at: null,
+            purpose: null,
+            size_bytes: 4,
+            status: "READY",
+            updated_at: "2026-04-14T00:00:00Z",
+            upload_token_id: null,
+            width: 1
+          },
+          upload_url: "https://uploads.imgwire.dev/example"
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          status: 200
+        }
+      )
+    );
+
+    const rawBytes = new Uint8Array([1, 2, 3, 4]);
+    const xhrRequests: Array<{
+      method: string;
+      url: string;
+      headers: Record<string, string>;
+      body: ArrayBuffer | Blob | Uint8Array | undefined;
+    }> = [];
+
+    const client = new ImgwireClient({
+      apiKey: "ck_test",
+      baseUrl: "https://api.example.test",
+      fetch: fetchMock,
+      xhrFactory: () =>
+        new MockXmlHttpRequest(xhrRequests) as unknown as XMLHttpRequest
+    });
+
+    const image = await client.images.uploadRaw({
+      contentLength: rawBytes.byteLength,
+      data: rawBytes,
+      fileName: "hero.png",
+      mimeType: "image/png"
+    });
+
+    expect(image.id).toBe("img_raw_123");
+    expect(xhrRequests).toEqual([
+      {
+        method: "PUT",
+        url: "https://uploads.imgwire.dev/example",
+        headers: {
+          "Content-Type": "image/png"
+        },
+        body: rawBytes
+      }
+    ]);
+    const requestInit = fetchMock.mock.calls[0]?.[1] as RequestInit;
+    expect(requestInit.body).toContain('"content_length":4');
+    expect(requestInit.body).toContain('"file_name":"hero.png"');
+  });
+
+  it("uploads raw binary data with progress callbacks", async () => {
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          image: {
+            cdn_url: "https://cdn.imgwire.dev/example.png",
+            created_at: "2026-04-14T00:00:00Z",
+            custom_metadata: {},
+            deleted_at: null,
+            environment_id: null,
+            exif_data: {},
+            extension: "png",
+            hash_sha256: null,
+            height: 1,
+            id: "img_raw_progress_123",
+            idempotency_key: null,
+            mime_type: "image/png",
+            original_filename: "hero.png",
+            processed_metadata_at: null,
+            purpose: null,
+            size_bytes: 4,
+            status: "READY",
+            updated_at: "2026-04-14T00:00:00Z",
+            upload_token_id: null,
+            width: 1
+          },
+          upload_url: "https://uploads.imgwire.dev/example"
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          status: 200
+        }
+      )
+    );
+
+    const progressEvents: number[] = [];
+    const client = new ImgwireClient({
+      apiKey: "ck_test",
+      fetch: fetchMock,
+      xhrFactory: () => new MockXmlHttpRequest([]) as unknown as XMLHttpRequest
+    });
+
+    await client.images.uploadRawWithProgress({
+      contentLength: 4,
+      data: new Uint8Array([1, 2, 3, 4]),
+      fileName: "hero.png",
+      mimeType: "image/png",
+      onProgress(progress) {
+        progressEvents.push(progress.loaded);
+      }
+    });
+
+    expect(progressEvents).toEqual([2, 4]);
+  });
 });
 
 class MockXmlHttpRequest {
@@ -492,6 +627,7 @@ class MockXmlHttpRequest {
     method: string;
     url: string;
     headers: Record<string, string>;
+    body: ArrayBuffer | Blob | Uint8Array | undefined;
   }>;
   private readonly headers: Record<string, string> = {};
   private method = "";
@@ -502,6 +638,7 @@ class MockXmlHttpRequest {
       method: string;
       url: string;
       headers: Record<string, string>;
+      body: ArrayBuffer | Blob | Uint8Array | undefined;
     }>
   ) {
     this.requests = requests;
@@ -516,7 +653,7 @@ class MockXmlHttpRequest {
     this.url = url;
   }
 
-  send(_body: Blob) {
+  send(body: ArrayBuffer | Blob | Uint8Array) {
     this.upload.onprogress?.({
       lengthComputable: true,
       loaded: 2,
@@ -530,7 +667,8 @@ class MockXmlHttpRequest {
     this.requests.push({
       method: this.method,
       url: this.url,
-      headers: { ...this.headers }
+      headers: { ...this.headers },
+      body
     });
     this.onload?.();
   }

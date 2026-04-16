@@ -16,6 +16,7 @@ import type {
 import { extendImage, type ImgwireImage } from "../images/url-builder.ts";
 import {
   uploadWithProgress,
+  type UploadRequestBody,
   type UploadProgress
 } from "../http/upload-with-progress.ts";
 
@@ -24,15 +25,30 @@ export type ImagesCreateOptions = {
   requestInit?: RequestInit;
 };
 
-export type ImagesUploadOptions = ImagesCreateOptions & {
+type ImagesUploadSharedOptions = ImagesCreateOptions & {
   customMetadata?: StandardUploadCreateSchema["custom_metadata"];
-  fileName?: string;
   getUploadToken?: UploadTokenProvider;
   hashSha256?: string | null;
   idempotencyKey?: string | null;
+  purpose?: string | null;
+};
+
+export type ImagesUploadOptions = ImagesUploadSharedOptions & {
+  fileName?: string;
   mimeType?: StandardUploadCreateSchema["mime_type"];
   onProgress?: (progress: UploadProgress) => void;
-  purpose?: string | null;
+  signal?: AbortSignal;
+};
+
+export type ImagesUploadRawInput = ImagesUploadSharedOptions & {
+  contentLength: number;
+  data: ArrayBuffer | Uint8Array;
+  fileName: string;
+  mimeType?: StandardUploadCreateSchema["mime_type"];
+};
+
+export type ImagesUploadRawWithProgressInput = ImagesUploadRawInput & {
+  onProgress?: (progress: UploadProgress) => void;
   signal?: AbortSignal;
 };
 
@@ -83,35 +99,71 @@ export class ImagesResource {
     file: File,
     options?: ImagesUploadOptions
   ): Promise<ImgwireImage> {
-    const uploadToken =
-      options?.uploadToken ??
-      (options?.getUploadToken
-        ? await options.getUploadToken()
-        : this.options.getUploadToken
-          ? await this.options.getUploadToken()
-          : undefined);
+    return this.uploadBody(file, {
+      contentLength: file.size,
+      customMetadata: options?.customMetadata,
+      fileName: options?.fileName ?? file.name,
+      hashSha256: options?.hashSha256,
+      idempotencyKey: options?.idempotencyKey,
+      mimeType: options?.mimeType ?? normalizeMimeType(file.type),
+      onProgress: options?.onProgress,
+      purpose: options?.purpose,
+      signal: options?.signal,
+      uploadToken: options?.uploadToken,
+      getUploadToken: options?.getUploadToken,
+      requestInit: options?.requestInit
+    });
+  }
+
+  async uploadRaw(input: ImagesUploadRawInput): Promise<ImgwireImage> {
+    return this.uploadBody(input.data, input);
+  }
+
+  async uploadRawWithProgress(
+    input: ImagesUploadRawWithProgressInput
+  ): Promise<ImgwireImage> {
+    return this.uploadBody(input.data, input);
+  }
+
+  private async uploadBody(
+    body: UploadRequestBody,
+    options: {
+      contentLength: number;
+      customMetadata?: StandardUploadCreateSchema["custom_metadata"];
+      fileName: string;
+      getUploadToken?: UploadTokenProvider;
+      hashSha256?: string | null;
+      idempotencyKey?: string | null;
+      mimeType?: StandardUploadCreateSchema["mime_type"];
+      onProgress?: (progress: UploadProgress) => void;
+      purpose?: string | null;
+      requestInit?: RequestInit;
+      signal?: AbortSignal;
+      uploadToken?: string | null;
+    }
+  ): Promise<ImgwireImage> {
+    const uploadToken = await resolveUploadToken(options, this.options);
 
     const response = await this.create(
       {
-        content_length: file.size,
-        custom_metadata: options?.customMetadata,
-        file_name: options?.fileName ?? file.name,
-        hash_sha256: options?.hashSha256,
-        idempotency_key: options?.idempotencyKey,
-        mime_type: options?.mimeType ?? normalizeMimeType(file.type),
-        purpose: options?.purpose
+        content_length: options.contentLength,
+        custom_metadata: options.customMetadata,
+        file_name: options.fileName,
+        hash_sha256: options.hashSha256,
+        idempotency_key: options.idempotencyKey,
+        mime_type: options.mimeType,
+        purpose: options.purpose
       },
       {
-        ...options,
+        requestInit: options.requestInit,
         uploadToken
       }
     );
 
-    await uploadWithProgress(response.upload_url, file, {
-      contentType:
-        options?.mimeType ?? normalizeMimeType(file.type) ?? undefined,
-      onProgress: options?.onProgress,
-      signal: options?.signal,
+    await uploadWithProgress(response.upload_url, body, {
+      contentType: options.mimeType,
+      onProgress: options.onProgress,
+      signal: options.signal,
       timeoutMs: this.options.timeoutMs,
       xhrFactory: this.options.xhrFactory
     });
@@ -128,6 +180,28 @@ export class ImagesResource {
       .imagesRetrieve(request, options?.requestInit)
       .then(extendImage);
   }
+}
+
+function resolveUploadToken(
+  localOptions: Pick<
+    ImagesUploadSharedOptions,
+    "getUploadToken" | "uploadToken"
+  >,
+  globalOptions: Pick<ImagesResourceOptions, "getUploadToken">
+): Promise<string | undefined> {
+  if (localOptions.uploadToken != null) {
+    return Promise.resolve(localOptions.uploadToken);
+  }
+
+  if (localOptions.getUploadToken) {
+    return localOptions.getUploadToken();
+  }
+
+  if (globalOptions.getUploadToken) {
+    return globalOptions.getUploadToken();
+  }
+
+  return Promise.resolve(undefined);
 }
 
 function normalizeMimeType(

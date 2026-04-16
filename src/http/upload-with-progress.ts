@@ -7,6 +7,8 @@ export type UploadProgress = {
   lengthComputable: boolean;
 };
 
+export type UploadRequestBody = Blob | ArrayBuffer | Uint8Array;
+
 export type UploadWithProgressOptions = {
   contentType?: string;
   onProgress?: (progress: UploadProgress) => void;
@@ -17,7 +19,7 @@ export type UploadWithProgressOptions = {
 
 export async function uploadWithProgress(
   url: string,
-  file: Blob,
+  body: UploadRequestBody,
   options: UploadWithProgressOptions = {}
 ): Promise<void> {
   const xhr = createXmlHttpRequest(options.xhrFactory);
@@ -74,7 +76,7 @@ export async function uploadWithProgress(
       reject(new Error("Upload was aborted."));
     };
 
-    xhr.send(file);
+    xhr.send(body as XMLHttpRequestBodyInit);
   });
 }
 

@@ -51,6 +51,22 @@ const image = await client.images.upload(file, {
 
 The returned value is the created image record, extended with URL helpers for CDN transformations.
 
+For non-browser environments that do not expose `File`, use `uploadRaw(...)` or `uploadRawWithProgress(...)` with binary data you have already loaded:
+
+```ts
+const bytes = new Uint8Array([1, 2, 3, 4]);
+
+const image = await client.images.uploadRawWithProgress({
+  contentLength: bytes.byteLength,
+  data: bytes,
+  fileName: "hero.png",
+  mimeType: "image/png",
+  onProgress(progress) {
+    console.log(progress.percent);
+  }
+});
+```
+
 If your client token requires signed uploads, provide an upload token directly or register a helper that fetches one from your backend.
 
 Global provider:
