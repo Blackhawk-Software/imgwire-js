@@ -11,6 +11,34 @@ function createMockFile(parts: BlobPart[], name: string, type: string): File {
   }) as File;
 }
 
+function createMockImage(overrides: Record<string, unknown> = {}) {
+  return {
+    can_upload: true,
+    cdn_url: "https://cdn.imgwire.dev/example",
+    created_at: "2026-04-14T00:00:00Z",
+    custom_metadata: {},
+    deleted_at: null,
+    environment_id: null,
+    exif_data: {},
+    extension: "png",
+    hash_sha256: null,
+    height: 1,
+    id: "img_123",
+    idempotency_key: null,
+    is_directly_deliverable: true,
+    mime_type: "image/png",
+    original_filename: "hero.png",
+    processed_metadata_at: null,
+    purpose: null,
+    size_bytes: 1,
+    status: "READY",
+    updated_at: "2026-04-14T00:00:00Z",
+    upload_token_id: null,
+    width: 1,
+    ...overrides
+  };
+}
+
 describe("ImgwireClient", () => {
   it("initializes grouped resources", () => {
     const client = new ImgwireClient({
@@ -26,28 +54,7 @@ describe("ImgwireClient", () => {
       new Response(
         JSON.stringify({
           fields: {},
-          image: {
-            cdn_url: "https://cdn.imgwire.dev/example.png",
-            created_at: "2026-04-14T00:00:00Z",
-            custom_metadata: {},
-            deleted_at: null,
-            environment_id: null,
-            exif_data: {},
-            extension: "png",
-            hash_sha256: null,
-            height: 1,
-            id: "img_123",
-            idempotency_key: null,
-            mime_type: "image/png",
-            original_filename: "hero.png",
-            processed_metadata_at: null,
-            purpose: null,
-            size_bytes: 1,
-            status: "READY",
-            updated_at: "2026-04-14T00:00:00Z",
-            upload_token_id: null,
-            width: 1
-          },
+          image: createMockImage(),
           upload_url: "https://uploads.imgwire.dev/example"
         }),
         {
@@ -92,28 +99,9 @@ describe("ImgwireClient", () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
-          image: {
-            cdn_url: "https://cdn.imgwire.dev/example.png",
-            created_at: "2026-04-14T00:00:00Z",
-            custom_metadata: {},
-            deleted_at: null,
-            environment_id: null,
-            exif_data: {},
-            extension: "png",
-            hash_sha256: null,
-            height: 1,
-            id: "img_123",
-            idempotency_key: null,
-            mime_type: "image/png",
-            original_filename: "hero.png",
-            processed_metadata_at: null,
-            purpose: null,
-            size_bytes: 4,
-            status: "READY",
-            updated_at: "2026-04-14T00:00:00Z",
-            upload_token_id: null,
-            width: 1
-          },
+          image: createMockImage({
+            size_bytes: 4
+          }),
           upload_url: "https://uploads.imgwire.dev/example"
         }),
         {
@@ -156,7 +144,7 @@ describe("ImgwireClient", () => {
         preset: "thumbnail",
         rotate: 90
       })
-    ).toBe("https://cdn.imgwire.dev/example.png@thumbnail?rotate=90");
+    ).toBe("https://cdn.imgwire.dev/example@thumbnail?rotate=90");
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(progressEvents).toEqual([2, 4]);
     expect(xhrRequests).toEqual([
@@ -177,28 +165,9 @@ describe("ImgwireClient", () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
-          image: {
-            cdn_url: "https://cdn.imgwire.dev/example.png",
-            created_at: "2026-04-14T00:00:00Z",
-            custom_metadata: {},
-            deleted_at: null,
-            environment_id: null,
-            exif_data: {},
-            extension: "png",
-            hash_sha256: null,
-            height: 1,
-            id: "img_123",
-            idempotency_key: null,
-            mime_type: "image/png",
-            original_filename: "hero.png",
-            processed_metadata_at: null,
-            purpose: null,
-            size_bytes: 4,
-            status: "READY",
-            updated_at: "2026-04-14T00:00:00Z",
-            upload_token_id: null,
-            width: 1
-          },
+          image: createMockImage({
+            size_bytes: 4
+          }),
           upload_url: "https://uploads.imgwire.dev/example"
         }),
         {
@@ -233,28 +202,9 @@ describe("ImgwireClient", () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
-          image: {
-            cdn_url: "https://cdn.imgwire.dev/example.png",
-            created_at: "2026-04-14T00:00:00Z",
-            custom_metadata: {},
-            deleted_at: null,
-            environment_id: null,
-            exif_data: {},
-            extension: "png",
-            hash_sha256: null,
-            height: 1,
-            id: "img_123",
-            idempotency_key: null,
-            mime_type: "image/png",
-            original_filename: "hero.png",
-            processed_metadata_at: null,
-            purpose: null,
-            size_bytes: 4,
-            status: "READY",
-            updated_at: "2026-04-14T00:00:00Z",
-            upload_token_id: null,
-            width: 1
-          },
+          image: createMockImage({
+            size_bytes: 4
+          }),
           upload_url: "https://uploads.imgwire.dev/example"
         }),
         {
@@ -294,28 +244,9 @@ describe("ImgwireClient", () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
-          image: {
-            cdn_url: "https://cdn.imgwire.dev/example.png",
-            created_at: "2026-04-14T00:00:00Z",
-            custom_metadata: {},
-            deleted_at: null,
-            environment_id: null,
-            exif_data: {},
-            extension: "png",
-            hash_sha256: null,
-            height: 1,
-            id: "img_123",
-            idempotency_key: null,
-            mime_type: "image/png",
-            original_filename: "hero.png",
-            processed_metadata_at: null,
-            purpose: null,
-            size_bytes: 4,
-            status: "READY",
-            updated_at: "2026-04-14T00:00:00Z",
-            upload_token_id: null,
-            width: 1
-          },
+          image: createMockImage({
+            size_bytes: 4
+          }),
           upload_url: "https://uploads.imgwire.dev/example"
         }),
         {
@@ -356,28 +287,16 @@ describe("ImgwireClient", () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
-          image: {
-            cdn_url: "https://cdn.imgwire.dev/example.jpg",
-            created_at: "2026-04-14T00:00:00Z",
-            custom_metadata: {},
-            deleted_at: null,
-            environment_id: null,
-            exif_data: {},
+          image: createMockImage({
+            cdn_url: "https://cdn.imgwire.dev/example",
             extension: "jpg",
-            hash_sha256: null,
             height: 100,
             id: "img_456",
-            idempotency_key: null,
             mime_type: "image/jpeg",
             original_filename: "example.jpg",
-            processed_metadata_at: null,
-            purpose: null,
             size_bytes: 10,
-            status: "READY",
-            updated_at: "2026-04-14T00:00:00Z",
-            upload_token_id: null,
             width: 100
-          },
+          }),
           upload_url: "https://uploads.imgwire.dev/example"
         }),
         {
@@ -406,7 +325,7 @@ describe("ImgwireClient", () => {
         rotate: 90
       })
     ).toBe(
-      "https://cdn.imgwire.dev/example.jpg@thumbnail?height=150&rotate=90&width=150"
+      "https://cdn.imgwire.dev/example@thumbnail?height=150&rotate=90&width=150"
     );
   });
 
@@ -414,26 +333,14 @@ describe("ImgwireClient", () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValueOnce(
       new Response(
         JSON.stringify({
-          cdn_url: "https://cdn.imgwire.dev/uploaded.png",
-          created_at: "2026-04-14T00:00:00Z",
-          custom_metadata: {},
-          deleted_at: null,
-          environment_id: null,
-          exif_data: {},
-          extension: "png",
-          hash_sha256: null,
-          height: 400,
-          id: "img_fetch_123",
-          idempotency_key: null,
-          mime_type: "image/png",
-          original_filename: "uploaded.png",
-          processed_metadata_at: null,
-          purpose: null,
-          size_bytes: 100,
-          status: "READY",
-          updated_at: "2026-04-14T00:00:00Z",
-          upload_token_id: null,
-          width: 600
+          ...createMockImage({
+            cdn_url: "https://cdn.imgwire.dev/uploaded",
+            height: 400,
+            id: "img_fetch_123",
+            original_filename: "uploaded.png",
+            size_bytes: 100,
+            width: 600
+          })
         }),
         {
           headers: {
@@ -465,35 +372,17 @@ describe("ImgwireClient", () => {
       image.url({
         rotate: 90
       })
-    ).toBe("https://cdn.imgwire.dev/uploaded.png?rotate=90");
+    ).toBe("https://cdn.imgwire.dev/uploaded?rotate=90");
   });
 
   it("uploads raw binary data without depending on File", async () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
-          image: {
-            cdn_url: "https://cdn.imgwire.dev/example.png",
-            created_at: "2026-04-14T00:00:00Z",
-            custom_metadata: {},
-            deleted_at: null,
-            environment_id: null,
-            exif_data: {},
-            extension: "png",
-            hash_sha256: null,
-            height: 1,
+          image: createMockImage({
             id: "img_raw_123",
-            idempotency_key: null,
-            mime_type: "image/png",
-            original_filename: "hero.png",
-            processed_metadata_at: null,
-            purpose: null,
-            size_bytes: 4,
-            status: "READY",
-            updated_at: "2026-04-14T00:00:00Z",
-            upload_token_id: null,
-            width: 1
-          },
+            size_bytes: 4
+          }),
           upload_url: "https://uploads.imgwire.dev/example"
         }),
         {
@@ -548,28 +437,10 @@ describe("ImgwireClient", () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
-          image: {
-            cdn_url: "https://cdn.imgwire.dev/example.png",
-            created_at: "2026-04-14T00:00:00Z",
-            custom_metadata: {},
-            deleted_at: null,
-            environment_id: null,
-            exif_data: {},
-            extension: "png",
-            hash_sha256: null,
-            height: 1,
+          image: createMockImage({
             id: "img_raw_progress_123",
-            idempotency_key: null,
-            mime_type: "image/png",
-            original_filename: "hero.png",
-            processed_metadata_at: null,
-            purpose: null,
-            size_bytes: 4,
-            status: "READY",
-            updated_at: "2026-04-14T00:00:00Z",
-            upload_token_id: null,
-            width: 1
-          },
+            size_bytes: 4
+          }),
           upload_url: "https://uploads.imgwire.dev/example"
         }),
         {

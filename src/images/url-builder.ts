@@ -28,6 +28,7 @@ export const IMAGE_URL_RESIZING_TYPES = [
 ] as const;
 
 export const IMAGE_URL_OUTPUT_FORMATS = [
+  "auto",
   "jpg",
   "png",
   "avif",
@@ -204,20 +205,7 @@ function parseTransformationEntries(
 }
 
 function appendPresetToPath(pathname: string, preset: ImageUrlPreset): string {
-  const slashIndex = pathname.lastIndexOf("/");
-  const prefix = slashIndex >= 0 ? pathname.slice(0, slashIndex + 1) : "";
-  const fileName = slashIndex >= 0 ? pathname.slice(slashIndex + 1) : pathname;
-  const dotIndex = fileName.lastIndexOf(".");
-
-  if (dotIndex <= 0 || dotIndex === fileName.length - 1) {
-    throw new Error(
-      "Cannot apply an image URL preset to a CDN url without a file extension."
-    );
-  }
-
-  return `${prefix}${fileName.slice(0, dotIndex + 1)}${fileName.slice(
-    dotIndex + 1
-  )}@${preset}`;
+  return `${pathname}@${preset}`;
 }
 
 function createTransformation(

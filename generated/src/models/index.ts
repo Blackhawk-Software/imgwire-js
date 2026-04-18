@@ -28,6 +28,12 @@ export interface HTTPValidationError {
 export interface ImageSchema {
     /**
      * 
+     * @type {boolean}
+     * @memberof ImageSchema
+     */
+    can_upload: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof ImageSchema
      */
@@ -92,6 +98,12 @@ export interface ImageSchema {
      * @memberof ImageSchema
      */
     idempotency_key: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ImageSchema
+     */
+    is_directly_deliverable: boolean;
     /**
      * 
      * @type {SupportedMimeType}
@@ -246,10 +258,15 @@ export interface StandardUploadResponseSchema {
  */
 export const SupportedMimeType = {
     image_jpeg: 'image/jpeg',
+    image_jxl: 'image/jxl',
     image_png: 'image/png',
     image_webp: 'image/webp',
     image_avif: 'image/avif',
-    image_gif: 'image/gif'
+    image_gif: 'image/gif',
+    image_vnd_microsoft_icon: 'image/vnd.microsoft.icon',
+    image_heic: 'image/heic',
+    image_bmp: 'image/bmp',
+    image_tiff: 'image/tiff'
 } as const;
 export type SupportedMimeType = typeof SupportedMimeType[keyof typeof SupportedMimeType];
 
