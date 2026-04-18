@@ -1,6 +1,6 @@
 {
   "name": "@imgwire/js",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Browser-first JavaScript/TypeScript SDK for the imgwire API.",
   "license": "MIT",
   "packageManager": "yarn@1.22.22",
