@@ -129,7 +129,7 @@ image.url({ width: 150, height: 150, rotate: 90 });
 image.url({ preset: "thumbnail", format: "webp", quality: 80 });
 ```
 
-Presets are applied as a suffix after the file extension and before query params:
+Presets are applied as a suffix on the CDN path before query params:
 
 - `thumbnail` -> `@thumbnail`
 - `small` -> `@small`
@@ -140,7 +140,7 @@ Example:
 
 ```ts
 image.url({ preset: "thumbnail", rotate: 90 });
-// https://cdn.imgwire.dev/example.jpg@thumbnail?rotate=90
+// https://cdn.imgwire.dev/example@thumbnail?rotate=90
 ```
 
 The SDK validates and normalizes transformation values to match the CDN worker. Query params are emitted using canonical rule names and sorted deterministically.
@@ -176,7 +176,7 @@ Accepted worker values:
 
 - `gravity`: `no`, `so`, `ea`, `we`, `noea`, `nowe`, `soea`, `sowe`, `ce`, plus `:sm` or pixel offsets like `ce:10:20`
 - `resizing_type`: `fit`, `fill`, `fill-down`, `force`, `auto`
-- `format`: `jpg`, `png`, `avif`, `gif`, `webp`
+- `format`: `auto`, `jpg`, `png`, `avif`, `gif`, `webp`
 - `rotate`: `0`, `90`, `180`, `270`, `360`
 - booleans: `true`, `false`, `t`, `f`, `1`, `0`
 
