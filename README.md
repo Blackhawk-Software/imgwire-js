@@ -1,12 +1,18 @@
-# imgwire-js
+![imgwire.dev Logo](https://cdn.imgwire.dev/6b024480-a5ac-426d-b539-2e4fccc4c6ac/26f80c13-48bd-4bb9-866e-5e9392b11a6a/4ba5fe50-433b-40db-a847-938d2081c21a?w=280&quality=80)
+
+# `imgwire-js`
 
 [![npm version](https://img.shields.io/npm/v/%40imgwire%2Fjs)](https://www.npmjs.com/package/@imgwire/js)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/Blackhawk-Software/imgwire-js/actions/workflows/ci.yml/badge.svg)](https://github.com/Blackhawk-Software/imgwire-js/actions/workflows/ci.yml)
 [![Release](https://github.com/Blackhawk-Software/imgwire-js/actions/workflows/release.yml/badge.svg)](https://github.com/Blackhawk-Software/imgwire-js/actions/workflows/release.yml)
 
 `@imgwire/js` is the browser-first JavaScript/TypeScript SDK for the imgwire API.
 
 Imgwire helps you upload, serve, and transform images in your app without building and maintaining the image infrastructure yourself. Use `@imgwire/js` to send files from the browser, generate optimized CDN URLs, and ship image-heavy product flows without wiring together object storage, signing, delivery, and transformation logic by hand.
+
+> [!TIP]
+> Obtain an API key by signing up at [imgwire.dev](https://imgwire.dev). Read the full API & SDK documentation [here](https://docs.imgwire.dev/guides/frontend-quickstart).
 
 ## Installation
 
