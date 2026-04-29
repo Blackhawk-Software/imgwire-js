@@ -149,51 +149,94 @@ image.url({ preset: "thumbnail", rotate: 90 });
 // https://cdn.imgwire.dev/example@thumbnail?rotate=90
 ```
 
-The SDK validates and normalizes transformation values to match the CDN worker. Query params are emitted using canonical rule names and sorted deterministically.
+The SDK validates and normalizes transformation values to match the CDN worker. Query params are emitted using canonical rule names and sorted deterministically. Invalid transform values are skipped instead of being emitted into the generated URL.
 
 Supported transformations:
 
+- `adjust` aliases: `a`
 - `background` aliases: `bg`
+- `background_alpha` aliases: `bga`
 - `blur` aliases: `bl`
+- `brightness` aliases: `br`
+- `color_profile` aliases: `cp`, `icc`
+- `colorize` aliases: `col`
+- `contrast` aliases: `co`
 - `crop` aliases: `c`
+- `dpi`
 - `dpr`
+- `duotone` aliases: `dt`
 - `enlarge` aliases: `el`
 - `extend` aliases: `ex`
 - `extend_aspect_ratio` aliases: `exar`, `extend_ar`
 - `flip` aliases: `fl`
 - `format` aliases: `f`, `ext`, `extension`
+- `gradient` aliases: `gr`
 - `gravity` aliases: `g`
 - `height` aliases: `h`
+- `hue` aliases: `hu`
 - `keep_copyright` aliases: `kcr`
+- `lightness` aliases: `l`
 - `min-height` aliases: `mh`
 - `min-width` aliases: `mw`
+- `monochrome` aliases: `mc`
+- `negate` aliases: `neg`
+- `normalize` aliases: `norm`, `normalise`
 - `padding` aliases: `pd`
 - `pixelate` aliases: `pix`
 - `quality` aliases: `q`
+- `resizing_algorithm` aliases: `ra`
 - `resizing_type`
 - `rotate` aliases: `rot`
+- `saturation` aliases: `sa`
 - `sharpen` aliases: `sh`
 - `strip_color_profile` aliases: `scp`
 - `strip_metadata` aliases: `sm`
+- `watermark` aliases: `wm`
+- `watermark_position` aliases: `wmp`, `watermark_offset`
+- `watermark_rotate` aliases: `wmr`, `wm_rot`
+- `watermark_shadow` aliases: `wmsh`
+- `watermark_size` aliases: `wms`
+- `watermark_text` aliases: `wmt`
+- `watermark_url` aliases: `wmu`
 - `width` aliases: `w`
 - `zoom` aliases: `z`
 
 Accepted worker values:
 
-- `gravity`: `no`, `so`, `ea`, `we`, `noea`, `nowe`, `soea`, `sowe`, `ce`, plus `:sm` or pixel offsets like `ce:10:20`
-- `resizing_type`: `fit`, `fill`, `fill-down`, `force`, `auto`
-- `format`: `auto`, `jpg`, `png`, `avif`, `gif`, `webp`
-- `rotate`: `0`, `90`, `180`, `270`, `360`
+- colors: `rgb`, `rrggbb`, `rrggbbaa`, `#rgb`, `#rrggbb`, `#rrggbbaa`, or `r:g:b[:alpha]`
+- `gravity`: `ce`, `center`, compass names, `attention`, `entropy`, and shorthand values like `noea`; `ce:sm` maps to `attention`
+- `resizing_type`: `cover`, `contain`, `fill`, `inside`, `outside`; legacy `fit`, `fill-down`, and `auto` map to `inside`, while `force` maps to `fill`
+- `format`: `auto`, `jpg`, `jpeg`, `png`, `webp`, `avif`, `gif`, `tiff`; `jpg` maps to `jpeg`
 - booleans: `true`, `false`, `t`, `f`, `1`, `0`
+
+Multi-field transforms can be passed as their URL string syntax or as objects:
+
+```ts
+image.url({
+  gradient: {
+    colors: ["#0b1f5e", "#ff2a2a"],
+    angle: 90,
+    opacity: 0.25,
+    blend: "overlay"
+  }
+});
+```
+
+`watermark_url` accepts either the already base64-encoded HTTPS URL value or a real HTTPS URL, which the SDK encodes for you.
 
 Examples:
 
 ```ts
-image.url({ background: "#ffffff", width: 300, height: 200 });
-image.url({ crop: "300:200:ce:0:0", format: "webp" });
+image.url({ w: 800, h: 600, resizing_type: "cover" });
+image.url({ width: 1200, format: "jpg", q: 85 });
+image.url({ crop: "400:300:noea", format: "webp" });
 image.url({ strip_metadata: true, strip_color_profile: true, quality: 82 });
 image.url({ enlarge: false, resizing_type: "fit", width: 960, height: 960 });
-image.url({ extend: "true:ce:0:0", background: "255:255:255" });
+image.url({
+  watermark_url: "https://example.com/logo.png",
+  watermark_position: { gravity: "se", x: -24, y: -24, opacity: 0.85 },
+  format: "webp"
+});
 ```
 
 ## Development
