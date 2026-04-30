@@ -37,6 +37,7 @@ Equivalent Viper transform payload:
   Worker as part of the query value.
 - `format=auto` asks the Worker to negotiate the output format from `Accept`.
   Omitted `format` behaves like `format=auto`.
+- `quality=auto` asks the Worker to choose quality automatically.
 - The Worker canonicalizes accepted query values before building cache keys.
 
 ## Gravity Values
@@ -71,6 +72,7 @@ Imgwire also accepts these shorthand URL values and sends the full Viper value:
 | `background_alpha`    | `bga`, `background_alpha`                       | `0..1`                                                                                                                                                        | number                                                    |
 | `blur`                | `bl`, `blur`                                    | `true` or sigma `0.3..100`                                                                                                                                    | `true` or number                                          |
 | `brightness`          | `br`, `brightness`                              | `0.01..10`                                                                                                                                                    | number                                                    |
+| `chroma_subsampling`  | `chroma_subsampling`                            | `4:4:4`, `4:2:2`, or `auto`                                                                                                                                   | string                                                    |
 | `color_profile`       | `cp`, `icc`, `color_profile`                    | `srgb`, `rgb16`, `cmyk`, `keep`, `preserve`                                                                                                                   | string                                                    |
 | `colorize`            | `col`, `colorize`                               | color                                                                                                                                                         | color                                                     |
 | `contrast`            | `co`, `contrast`                                | `multiplier[:pivot]` or JSON object                                                                                                                           | number or `{ "multiplier": n, "pivot"?: n }`              |
@@ -96,7 +98,8 @@ Imgwire also accepts these shorthand URL values and sends the full Viper value:
 | `normalize`           | `norm`, `normalise`, `normalize`                | boolean or `lower:upper`                                                                                                                                      | boolean or `{ "lower": n, "upper": n }`                   |
 | `padding`             | `pd`, `padding`                                 | `all`, `x:y`, `top:x:bottom`, `top:right:bottom:left`, or JSON object                                                                                         | number or padding object                                  |
 | `pixelate`            | `pix`, `pixelate`                               | integer `2..256`                                                                                                                                              | number                                                    |
-| `quality`             | `q`, `quality`                                  | integer `1..100`                                                                                                                                              | number                                                    |
+| `progressive`         | `progressive`                                   | boolean or `auto`                                                                                                                                             | boolean or string                                         |
+| `quality`             | `q`, `quality`                                  | integer `1..100` or `auto`                                                                                                                                    | number or string                                          |
 | `resizing_algorithm`  | `ra`, `resizing_algorithm`                      | `nearest`, `cubic`, `mitchell`, `lanczos2`, `lanczos3`                                                                                                        | string                                                    |
 | `resizing_type`       | `resizing_type`                                 | `cover`, `contain`, `fill`, `inside`, `outside`; legacy `fit` maps to `inside`, `fill-down` maps to `inside`, `force` maps to `fill`, `auto` maps to `inside` | string                                                    |
 | `rotate`              | `rot`, `rotate`                                 | `angle`, `angle:background`, or JSON object                                                                                                                   | number or `{ "angle": n, "background"?: color }`          |
@@ -126,6 +129,12 @@ Explicit JPEG output:
 
 ```text
 ?width=1200&format=jpg&q=85
+```
+
+Automatic quality and encoding options:
+
+```text
+?quality=auto&progressive=auto&chroma_subsampling=4:2:2
 ```
 
 Region crop with shorthand gravity:

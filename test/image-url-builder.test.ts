@@ -84,6 +84,34 @@ describe("extendImage", () => {
     );
   });
 
+  it("supports automatic quality, progressive, and chroma subsampling transforms", () => {
+    expectUrl(
+      {
+        chroma_subsampling: "4:4:4",
+        progressive: "auto",
+        quality: "auto"
+      },
+      {
+        chroma_subsampling: "4:4:4",
+        progressive: "auto",
+        quality: "auto"
+      }
+    );
+
+    expectUrl(
+      {
+        chroma_subsampling: "auto",
+        progressive: false,
+        q: "85"
+      },
+      {
+        chroma_subsampling: "auto",
+        progressive: "false",
+        quality: "85"
+      }
+    );
+  });
+
   it("rejects duplicate aliases for the same canonical rule", () => {
     expect(() =>
       makeImage().url({
@@ -98,12 +126,14 @@ describe("extendImage", () => {
       {
         background: "not-a-color",
         blur: 0.2,
+        chroma_subsampling: "4:2:0",
         height: 8193,
         pixelate: 1,
+        progressive: "maybe",
         quality: 101,
         watermark_url: "http://example.com/logo.png",
         width: 320
-      },
+      } as unknown as ImageUrlOptions,
       {
         width: "320"
       }
@@ -200,6 +230,7 @@ describe("extendImage", () => {
         background_alpha: 0.5,
         blur: true,
         brightness: 1.25,
+        chroma_subsampling: "4:2:2",
         color_profile: "srgb",
         colorize: "#abc",
         contrast: "1.2:0.5",
@@ -225,6 +256,7 @@ describe("extendImage", () => {
         normalize: "1:99",
         padding: "1:2:3:4",
         pixelate: 8,
+        progressive: true,
         quality: 85,
         resizing_algorithm: "lanczos3",
         resizing_type: "fit",
@@ -249,6 +281,7 @@ describe("extendImage", () => {
         background_alpha: "0.5",
         blur: "true",
         brightness: "1.25",
+        chroma_subsampling: "4:2:2",
         color_profile: "srgb",
         colorize: "abc",
         contrast: "1.2:0.5",
@@ -274,6 +307,7 @@ describe("extendImage", () => {
         normalize: "1:99",
         padding: "1:2:3:4",
         pixelate: "8",
+        progressive: "true",
         quality: "85",
         resizing_algorithm: "lanczos3",
         resizing_type: "inside",

@@ -158,6 +158,7 @@ Supported transformations:
 - `background_alpha` aliases: `bga`
 - `blur` aliases: `bl`
 - `brightness` aliases: `br`
+- `chroma_subsampling`
 - `color_profile` aliases: `cp`, `icc`
 - `colorize` aliases: `col`
 - `contrast` aliases: `co`
@@ -183,6 +184,7 @@ Supported transformations:
 - `normalize` aliases: `norm`, `normalise`
 - `padding` aliases: `pd`
 - `pixelate` aliases: `pix`
+- `progressive`
 - `quality` aliases: `q`
 - `resizing_algorithm` aliases: `ra`
 - `resizing_type`
@@ -207,6 +209,9 @@ Accepted worker values:
 - `gravity`: `ce`, `center`, compass names, `attention`, `entropy`, and shorthand values like `noea`; `ce:sm` maps to `attention`
 - `resizing_type`: `cover`, `contain`, `fill`, `inside`, `outside`; legacy `fit`, `fill-down`, and `auto` map to `inside`, while `force` maps to `fill`
 - `format`: `auto`, `jpg`, `jpeg`, `png`, `webp`, `avif`, `gif`, `tiff`; `jpg` maps to `jpeg`
+- `quality`: integer `1..100` or `auto`
+- `progressive`: boolean or `auto`
+- `chroma_subsampling`: `4:4:4`, `4:2:2`, or `auto`
 - booleans: `true`, `false`, `t`, `f`, `1`, `0`
 
 Multi-field transforms can be passed as their URL string syntax or as objects:
@@ -230,7 +235,8 @@ Examples:
 image.url({ w: 800, h: 600, resizing_type: "cover" });
 image.url({ width: 1200, format: "jpg", q: 85 });
 image.url({ crop: "400:300:noea", format: "webp" });
-image.url({ strip_metadata: true, strip_color_profile: true, quality: 82 });
+image.url({ strip_metadata: true, strip_color_profile: true, quality: "auto" });
+image.url({ progressive: "auto", chroma_subsampling: "4:2:2" });
 image.url({ enlarge: false, resizing_type: "fit", width: 960, height: 960 });
 image.url({
   watermark_url: "https://example.com/logo.png",

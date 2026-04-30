@@ -79,6 +79,7 @@ export type OutputFormat = (typeof IMAGE_URL_OUTPUT_FORMATS)[number];
 export type RotateAngle = (typeof IMAGE_URL_ROTATE_ANGLES)[number];
 export type BooleanString = "true" | "false" | "t" | "f" | "1" | "0";
 export type BooleanLike = boolean | BooleanString;
+export type ChromaSubsamplingValue = "4:4:4" | "4:2:2" | "auto";
 export type ColorValue = string;
 export type GravityValue =
   | GravityType
@@ -174,6 +175,8 @@ export type PaddingValue =
       bottom?: number | string;
       left?: number | string;
     };
+export type ProgressiveValue = BooleanLike | "auto";
+export type QualityValue = number | string;
 export type RotateValue =
   | number
   | string
@@ -255,6 +258,7 @@ export type ImageUrlOptions = {
   bl?: boolean | number | string;
   brightness?: number | string;
   br?: number | string;
+  chroma_subsampling?: ChromaSubsamplingValue;
   color_profile?: string;
   cp?: string;
   icc?: string;
@@ -310,8 +314,9 @@ export type ImageUrlOptions = {
   pd?: PaddingValue;
   pixelate?: number | string;
   pix?: number | string;
-  quality?: number | string;
-  q?: number | string;
+  progressive?: ProgressiveValue;
+  quality?: QualityValue;
+  q?: QualityValue;
   resizing_algorithm?: ResizingAlgorithm;
   ra?: ResizingAlgorithm;
   resizing_type?: ResizingType;
@@ -999,7 +1004,25 @@ function parseBooleanTransformation(value: unknown, canonical: string) {
   );
 }
 
+function parseChromaSubsampling(value: unknown, canonical: string) {
+  const chromaSubsampling = parseString(value, canonical).trim().toLowerCase();
+  if (!["4:4:4", "4:2:2", "auto"].includes(chromaSubsampling)) {
+    invalid(canonical);
+  }
+  return createTransformation(canonical, chromaSubsampling);
+}
+
+function parseProgressive(value: unknown, canonical: string) {
+  if (typeof value === "string" && value.trim().toLowerCase() === "auto") {
+    return createTransformation(canonical, "auto");
+  }
+  return parseBooleanTransformation(value, canonical);
+}
+
 function parseQuality(value: unknown, canonical: string) {
+  if (typeof value === "string" && value.trim().toLowerCase() === "auto") {
+    return createTransformation(canonical, "auto");
+  }
   return createTransformation(
     canonical,
     formatNumber(parseInteger(value, canonical, { min: 1, max: 100 }))
@@ -1835,6 +1858,11 @@ const RULES: Rule[] = [
     parse: parseBrightness
   },
   {
+    canonical: "chroma_subsampling",
+    aliases: ["chroma_subsampling"],
+    parse: parseChromaSubsampling
+  },
+  {
     canonical: "color_profile",
     aliases: ["cp", "icc", "color_profile"],
     parse: parseColorProfile
@@ -1895,6 +1923,11 @@ const RULES: Rule[] = [
   },
   { canonical: "padding", aliases: ["pd", "padding"], parse: parsePadding },
   { canonical: "pixelate", aliases: ["pix", "pixelate"], parse: parsePixelate },
+  {
+    canonical: "progressive",
+    aliases: ["progressive"],
+    parse: parseProgressive
+  },
   { canonical: "quality", aliases: ["q", "quality"], parse: parseQuality },
   {
     canonical: "resizing_algorithm",
